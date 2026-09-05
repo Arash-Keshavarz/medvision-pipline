@@ -51,6 +51,10 @@ dev = [
     "ipykernel>=6.29"
 ]
 
+data = [
+    "kaggle"
+    ]
+
 mlops = [
     "mlflow>=2.16",
     "dvc>=3.55"

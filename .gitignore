@@ -30,6 +30,10 @@ data/*
 !data/.gitkeep
 !data/README.md
 
+# Kaggle credentials
+kaggle.json
+.kaggle/
+
 # Models and checkpoints
 models/
 checkpoints/
