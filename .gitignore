@@ -49,9 +49,9 @@ wandb/
 lightning_logs/
 
 # Reports generated during experiments
-reports/figures/
 reports/metrics/
 reports/predictions/
+reports/dataset_audit/dataset_inventory.csv
 
 # Testing and code quality
 .pytest_cache/
