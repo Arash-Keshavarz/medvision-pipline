@@ -69,3 +69,8 @@ dist/
 *.log
 tmp/
 temp/
+
+
+# Regeneratable duplicate-detection inventories
+reports/duplicate_detection/hash_inventory.csv
+reports/duplicate_detection/near_duplicate_pairs.csv
