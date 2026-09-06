@@ -52,7 +52,8 @@ dev = [
 ]
 
 data = [
-    "kaggle"
+    "kaggle",
+    "imagehash>=4.3",
     ]
 
 mlops = [
