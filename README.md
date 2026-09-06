@@ -89,4 +89,35 @@ medvision-pipeline/
 └── README.md
 ```
 
+### Dataset audit findings
+
+The dataset contains 2,357 readable RGB JPEG images across nine
+skin-lesion classes:
+
+- 2,239 training images
+- 118 test images
+- 0 corrupted or unreadable images
+
+Both splits have the same median image resolution of 600 x 450 pixels
+and a median aspect ratio of 4:3. However, the test split contains
+several higher-resolution outliers, reaching a maximum resolution of
+6688 x 4479 pixels.
+
+The training split is imbalanced. The largest class contains 462 images,
+while the smallest contains 77 images, resulting in an imbalance ratio
+of 6:1.
+
+The provided test set is small. Most classes contain 16 test images,
+while seborrheic keratosis and vascular lesion contain only three test
+images each. Consequently, per-class test metrics for these classes
+will have high uncertainty.
+
+The project will therefore:
+
+- use balanced accuracy and macro F1 as primary metrics;
+- report per-class recall and support;
+- investigate weighted loss and weighted sampling;
+- preserve the provided test set as a final holdout;
+- create a validation split only from the original training data;
+- perform duplicate detection before creating new split manifests.
 

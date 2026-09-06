@@ -1,0 +1,19 @@
+split,class_name,image_count
+Test,actinic keratosis,16
+Test,basal cell carcinoma,16
+Test,dermatofibroma,16
+Test,melanoma,16
+Test,nevus,16
+Test,pigmented benign keratosis,16
+Test,seborrheic keratosis,3
+Test,squamous cell carcinoma,16
+Test,vascular lesion,3
+Train,actinic keratosis,114
+Train,basal cell carcinoma,376
+Train,dermatofibroma,95
+Train,melanoma,438
+Train,nevus,357
+Train,pigmented benign keratosis,462
+Train,seborrheic keratosis,77
+Train,squamous cell carcinoma,181
+Train,vascular lesion,139
