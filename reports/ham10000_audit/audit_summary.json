@@ -1,0 +1,73 @@
+{
+  "summary": {
+    "total_images": 10015,
+    "readable_images": 10015,
+    "unreadable_images": 0,
+    "images_with_metadata": 10015,
+    "images_without_metadata": 0,
+    "metadata_without_images": 0,
+    "unique_image_ids": 10015,
+    "unique_lesions": 7470,
+    "class_counts": {
+      "akiec": 327,
+      "bcc": 514,
+      "bkl": 1099,
+      "df": 115,
+      "mel": 1113,
+      "nv": 6705,
+      "vasc": 142
+    },
+    "source_counts": {
+      "rosendahl": 2259,
+      "vidir_modern": 3363,
+      "vidir_molemax": 3954,
+      "vienna_dias": 439
+    },
+    "image_modes": {
+      "RGB": 10015
+    },
+    "extensions": {
+      ".jpg": 10015
+    },
+    "minimum_width": 600,
+    "median_width": 600.0,
+    "maximum_width": 600,
+    "minimum_height": 450,
+    "median_height": 450.0,
+    "maximum_height": 450
+  },
+  "structure_validation": {
+    "expected_classes": [
+      "akiec",
+      "bcc",
+      "bkl",
+      "df",
+      "mel",
+      "nv",
+      "vasc"
+    ],
+    "discovered_classes": [
+      "akiec",
+      "bcc",
+      "bkl",
+      "df",
+      "mel",
+      "nv",
+      "vasc"
+    ],
+    "missing_classes": [],
+    "unexpected_classes": [],
+    "missing_image_ids": [],
+    "images_without_metadata": [],
+    "duplicate_image_ids": 0,
+    "missing_metadata_values": {
+      "lesion_id": 0,
+      "class_name": 0,
+      "dx_type": 0,
+      "age": 57,
+      "sex": 0,
+      "localization": 0,
+      "source": 0
+    }
+  }
+}

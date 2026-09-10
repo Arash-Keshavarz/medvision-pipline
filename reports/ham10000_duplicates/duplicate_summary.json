@@ -1,0 +1,12 @@
+{
+  "exact_duplicate_groups": 2,
+  "images_in_exact_duplicate_groups": 4,
+  "exact_cross_lesion_groups": 0,
+  "exact_cross_class_groups": 0,
+  "exact_cross_source_groups": 0,
+  "near_duplicate_pairs": 1688,
+  "near_same_lesion_pairs": 154,
+  "near_cross_lesion_pairs": 1534,
+  "near_cross_class_pairs": 292,
+  "near_cross_source_pairs": 684
+}

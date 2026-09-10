@@ -1,11 +1,10 @@
-"""Exact and perceptual duplicate detection."""
+"""Exact and perceptual duplicate detection for HAM10000."""
 
 from __future__ import annotations
 
 import hashlib
 import json
-from collections import defaultdict
-from itertools import combinations
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -16,199 +15,326 @@ from PIL import Image
 
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 
+NEAR_PAIR_COLUMNS = [
+    "image_id_left",
+    "image_id_right",
+    "lesion_id_left",
+    "lesion_id_right",
+    "class_left",
+    "class_right",
+    "source_left",
+    "source_right",
+    "path_left",
+    "path_right",
+    "hash_distance",
+    "same_lesion",
+    "cross_lesion",
+    "cross_class",
+    "cross_source",
+]
 
-def calculate_sha256(path: Path) -> str:
-    """Calculate a file's SHA-256 hash."""
+
+def calculate_sha256(image_path: Path) -> str:
+    """Calculate the SHA-256 digest of a file."""
 
     digest = hashlib.sha256()
 
-    with path.open("rb") as file:
-        for chunk in iter(lambda: file.read(1024 * 1024), b""):
-            digest.update(chunk)
+    with image_path.open("rb") as file:
+        for block in iter(lambda: file.read(1024 * 1024), b""):
+            digest.update(block)
+
     return digest.hexdigest()
 
 
-def calculate_perceptual_hash(path: Path) -> str:
-    """Calculate a perceptual hash for an image."""
+def calculate_perceptual_hash(image_path: Path) -> str:
+    """Calculate a 64-bit perceptual hash."""
 
-    with Image.open(path) as image:
-        rgb_image = image.convert("RGB")
-        return str(imagehash.phash(rgb_image))
+    with Image.open(image_path) as image:
+        image = image.convert("RGB")
+        return str(imagehash.phash(image))
 
 
-def discover_images(dataset_root: Path) -> list[dict[str, Any]]:
-    """Discover images organized as split/class/image."""
+def hamming_distance(first_hash: str, second_hash: str) -> int:
+    """Calculate the Hamming distance between hexadecimal hashes."""
 
-    dataset_root = dataset_root.resolve()
-    records: list[dict[str, Any]] = []
-
-    for split_directory in sorted(dataset_root.iterdir()):
-        if not split_directory.is_dir():
-            continue
-
-        for class_directory in sorted(split_directory.iterdir()):
-            if not class_directory.is_dir():
-                continue
-
-            for image_path in sorted(class_directory.rglob("*")):
-                if image_path.is_file() and image_path.suffix.lower() in SUPPORTED_EXTENSIONS:
-                    records.append(
-                        {
-                            "path": image_path,
-                            "relative_path": image_path.relative_to(dataset_root).as_posix(),
-                            "split": split_directory.name,
-                            "class_name": class_directory.name,
-                        }
-                    )
-
-    return records
+    return (int(first_hash, 16) ^ int(second_hash, 16)).bit_count()
 
 
 def build_hash_inventory(dataset_root: Path) -> pd.DataFrame:
-    """Calculate exact and perceptual hashes for every image."""
+    """Build an image-hash inventory using HAM10000 metadata."""
 
-    records = discover_images(dataset_root)
+    dataset_root = dataset_root.resolve()
+    image_root = dataset_root / "images"
+    metadata_path = dataset_root / "HAM10000_metadata.csv"
 
-    if not records:
-        raise ValueError(f"No supported images found under {dataset_root}")
+    if not image_root.exists():
+        raise FileNotFoundError(f"Image directory not found: {image_root}")
 
-    inventory: list[dict[str, Any]] = []
+    if not metadata_path.exists():
+        raise FileNotFoundError(f"Metadata file not found: {metadata_path}")
 
-    for index, record in enumerate(records, start=1):
-        image_path = record["path"]
+    metadata = pd.read_csv(metadata_path)
 
-        inventory.append(
+    required_columns = {
+        "image_id",
+        "lesion_id",
+        "dx",
+        "dataset",
+    }
+
+    missing_columns = required_columns - set(metadata.columns)
+
+    if missing_columns:
+        raise ValueError(f"Metadata is missing required columns: {sorted(missing_columns)}")
+
+    if metadata["image_id"].duplicated().any():
+        raise ValueError("Metadata contains duplicate image_id values.")
+
+    metadata_by_id = metadata.set_index("image_id")
+
+    image_paths = sorted(
+        path
+        for path in image_root.rglob("*")
+        if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS
+    )
+
+    if not image_paths:
+        raise ValueError(f"No supported images found under: {image_root}")
+
+    records: list[dict[str, Any]] = []
+
+    for index, image_path in enumerate(image_paths, start=1):
+        image_id = image_path.stem
+
+        if image_id not in metadata_by_id.index:
+            raise ValueError(f"Image has no metadata record: {image_id}")
+
+        metadata_row = metadata_by_id.loc[image_id]
+
+        records.append(
             {
-                "relative_path": record["relative_path"],
-                "split": record["split"],
-                "class_name": record["class_name"],
+                "image_id": image_id,
+                "lesion_id": metadata_row["lesion_id"],
+                "class_name": metadata_row["dx"],
+                "source": metadata_row["dataset"],
+                "relative_path": str(image_path.relative_to(dataset_root)),
                 "sha256": calculate_sha256(image_path),
                 "perceptual_hash": calculate_perceptual_hash(image_path),
             }
         )
 
-        if index % 250 == 0:
-            print(f"Hashed {index}/{len(records)} images")
+        if index % 1000 == 0:
+            print(f"Hashed {index:,}/{len(image_paths):,} images")
 
-    return pd.DataFrame(inventory)
+    inventory = pd.DataFrame(records)
+
+    metadata_ids = set(metadata["image_id"])
+    discovered_ids = set(inventory["image_id"])
+    missing_images = metadata_ids - discovered_ids
+
+    if missing_images:
+        raise ValueError(f"{len(missing_images)} metadata records have no image.")
+
+    return inventory.sort_values("image_id").reset_index(drop=True)
 
 
 def find_exact_duplicate_groups(
     inventory: pd.DataFrame,
 ) -> list[dict[str, Any]]:
-    """Find groups with identical SHA-256 hashes."""
+    """Find files with identical SHA-256 hashes."""
 
-    groups: list[dict[str, Any]] = []
+    duplicate_groups: list[dict[str, Any]] = []
 
-    for sha256, group in inventory.groupby("sha256"):
+    for sha256, group in inventory.groupby(
+        "sha256",
+        sort=True,
+    ):
         if len(group) < 2:
             continue
 
-        records = group.to_dict(orient="records")
+        lesion_ids = sorted(group["lesion_id"].astype(str).unique().tolist())
+        classes = sorted(group["class_name"].astype(str).unique().tolist())
+        sources = sorted(group["source"].astype(str).unique().tolist())
 
-        splits = sorted(group["split"].unique())
-        classes = sorted(group["class_name"].unique())
+        images = []
 
-        groups.append(
+        for row in group.sort_values("image_id").itertuples():
+            images.append(
+                {
+                    "image_id": row.image_id,
+                    "lesion_id": row.lesion_id,
+                    "class_name": row.class_name,
+                    "source": row.source,
+                    "relative_path": row.relative_path,
+                }
+            )
+
+        duplicate_groups.append(
             {
                 "sha256": sha256,
-                "image_count": len(records),
-                "cross_split": len(splits) > 1,
-                "cross_class": len(classes) > 1,
-                "splits": splits,
+                "image_count": int(len(group)),
+                "lesion_ids": lesion_ids,
                 "classes": classes,
-                "images": [
-                    {
-                        "relative_path": record["relative_path"],
-                        "split": record["split"],
-                        "class_name": record["class_name"],
-                    }
-                    for record in records
-                ],
+                "sources": sources,
+                "cross_lesion": len(lesion_ids) > 1,
+                "cross_class": len(classes) > 1,
+                "cross_source": len(sources) > 1,
+                "images": images,
             }
         )
 
-    return groups
+    return duplicate_groups
 
 
-def hamming_distance(hash_a: str, hash_b: str) -> int:
-    """Calculate Hamming distance between hexadecimal hashes."""
+@dataclass
+class _BKNode:
+    """Node used for bounded Hamming-distance search."""
 
-    integer_a = int(hash_a, 16)
-    integer_b = int(hash_b, 16)
+    value: int
+    row_indices: list[int] = field(default_factory=list)
+    children: dict[int, "_BKNode"] = field(default_factory=dict)
 
-    return (integer_a ^ integer_b).bit_count()
+    def add(self, value: int, row_index: int) -> None:
+        """Add a hash value to the tree."""
+
+        distance = (self.value ^ value).bit_count()
+
+        if distance == 0:
+            self.row_indices.append(row_index)
+            return
+
+        child = self.children.get(distance)
+
+        if child is None:
+            self.children[distance] = _BKNode(
+                value=value,
+                row_indices=[row_index],
+            )
+            return
+
+        child.add(value, row_index)
+
+    def query(
+        self,
+        value: int,
+        maximum_distance: int,
+    ) -> list[tuple[int, int]]:
+        """Return matching row indices and their distances."""
+
+        distance = (self.value ^ value).bit_count()
+        matches: list[tuple[int, int]] = []
+
+        if distance <= maximum_distance:
+            matches.extend((row_index, distance) for row_index in self.row_indices)
+
+        minimum_edge = distance - maximum_distance
+        maximum_edge = distance + maximum_distance
+
+        for edge, child in self.children.items():
+            if minimum_edge <= edge <= maximum_edge:
+                matches.extend(child.query(value, maximum_distance))
+
+        return matches
 
 
 def find_near_duplicate_pairs(
     inventory: pd.DataFrame,
     maximum_distance: int = 6,
 ) -> pd.DataFrame:
-    """Find visually similar images with different file hashes."""
+    """Find perceptually similar image pairs using a BK-tree."""
 
-    records = inventory.to_dict(orient="records")
-    candidates: list[dict[str, Any]] = []
+    if not 0 <= maximum_distance <= 64:
+        raise ValueError("maximum_distance must be between 0 and 64.")
 
-    for first, second in combinations(records, 2):
-        # Exact binary duplicates are already reported separately.
-        if first["sha256"] == second["sha256"]:
-            continue
+    ordered = inventory.sort_values("image_id").reset_index(drop=True)
 
-        distance = hamming_distance(
-            first["perceptual_hash"],
-            second["perceptual_hash"],
-        )
+    if ordered.empty:
+        return pd.DataFrame(columns=NEAR_PAIR_COLUMNS)
 
-        if distance <= maximum_distance:
-            candidates.append(
-                {
-                    "first_path": first["relative_path"],
-                    "second_path": second["relative_path"],
-                    "first_split": first["split"],
-                    "second_split": second["split"],
-                    "first_class": first["class_name"],
-                    "second_class": second["class_name"],
-                    "hash_distance": distance,
-                    "cross_split": (first["split"] != second["split"]),
-                    "cross_class": (first["class_name"] != second["class_name"]),
-                }
+    root: _BKNode | None = None
+    pairs: list[dict[str, Any]] = []
+
+    for right_index, right in ordered.iterrows():
+        hash_value = int(right["perceptual_hash"], 16)
+
+        if root is not None:
+            candidates = root.query(
+                hash_value,
+                maximum_distance,
             )
 
-    columns = [
-        "first_path",
-        "second_path",
-        "first_split",
-        "second_split",
-        "first_class",
-        "second_class",
-        "hash_distance",
-        "cross_split",
-        "cross_class",
-    ]
+            for left_index, distance in candidates:
+                left = ordered.iloc[left_index]
 
-    return pd.DataFrame(candidates, columns=columns)
+                # Exact byte duplicates are reported separately.
+                if left["sha256"] == right["sha256"]:
+                    continue
+
+                same_lesion = left["lesion_id"] == right["lesion_id"]
+
+                pairs.append(
+                    {
+                        "image_id_left": left["image_id"],
+                        "image_id_right": right["image_id"],
+                        "lesion_id_left": left["lesion_id"],
+                        "lesion_id_right": right["lesion_id"],
+                        "class_left": left["class_name"],
+                        "class_right": right["class_name"],
+                        "source_left": left["source"],
+                        "source_right": right["source"],
+                        "path_left": left["relative_path"],
+                        "path_right": right["relative_path"],
+                        "hash_distance": int(distance),
+                        "same_lesion": bool(same_lesion),
+                        "cross_lesion": bool(not same_lesion),
+                        "cross_class": bool(left["class_name"] != right["class_name"]),
+                        "cross_source": bool(left["source"] != right["source"]),
+                    }
+                )
+
+        if root is None:
+            root = _BKNode(
+                value=hash_value,
+                row_indices=[right_index],
+            )
+        else:
+            root.add(hash_value, right_index)
+
+    if not pairs:
+        return pd.DataFrame(columns=NEAR_PAIR_COLUMNS)
+
+    return (
+        pd.DataFrame(pairs, columns=NEAR_PAIR_COLUMNS)
+        .sort_values(
+            [
+                "hash_distance",
+                "image_id_left",
+                "image_id_right",
+            ]
+        )
+        .reset_index(drop=True)
+    )
 
 
 def create_duplicate_summary(
     exact_groups: list[dict[str, Any]],
     near_pairs: pd.DataFrame,
 ) -> dict[str, int]:
-    """Summarize duplicate-detection results."""
+    """Create a summary of exact and near duplicates."""
 
-    exact_image_count = sum(group["image_count"] for group in exact_groups)
+    images_in_exact_groups = sum(group["image_count"] for group in exact_groups)
 
     return {
         "exact_duplicate_groups": len(exact_groups),
-        "images_in_exact_duplicate_groups": exact_image_count,
-        "exact_cross_split_groups": sum(bool(group["cross_split"]) for group in exact_groups),
+        "images_in_exact_duplicate_groups": (images_in_exact_groups),
+        "exact_cross_lesion_groups": sum(bool(group["cross_lesion"]) for group in exact_groups),
         "exact_cross_class_groups": sum(bool(group["cross_class"]) for group in exact_groups),
-        "near_duplicate_pairs": len(near_pairs),
-        "near_cross_split_pairs": (
-            int(near_pairs["cross_split"].sum()) if not near_pairs.empty else 0
-        ),
-        "near_cross_class_pairs": (
-            int(near_pairs["cross_class"].sum()) if not near_pairs.empty else 0
-        ),
+        "exact_cross_source_groups": sum(bool(group["cross_source"]) for group in exact_groups),
+        "near_duplicate_pairs": int(len(near_pairs)),
+        "near_same_lesion_pairs": int(near_pairs["same_lesion"].sum()),
+        "near_cross_lesion_pairs": int(near_pairs["cross_lesion"].sum()),
+        "near_cross_class_pairs": int(near_pairs["cross_class"].sum()),
+        "near_cross_source_pairs": int(near_pairs["cross_source"].sum()),
     }
 
 

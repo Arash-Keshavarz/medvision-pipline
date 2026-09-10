@@ -1,0 +1,66 @@
+[
+  {
+    "sha256": "b1780747e0ccd3d31652bcf942a0f4bb22af6e058a5dc8b84202e997b7247b8d",
+    "image_count": 2,
+    "lesion_ids": [
+      "HAM_0001895"
+    ],
+    "classes": [
+      "nv"
+    ],
+    "sources": [
+      "vienna_dias"
+    ],
+    "cross_lesion": false,
+    "cross_class": false,
+    "cross_source": false,
+    "images": [
+      {
+        "image_id": "ISIC_0024777",
+        "lesion_id": "HAM_0001895",
+        "class_name": "nv",
+        "source": "vienna_dias",
+        "relative_path": "images/ISIC_0024777.jpg"
+      },
+      {
+        "image_id": "ISIC_0029938",
+        "lesion_id": "HAM_0001895",
+        "class_name": "nv",
+        "source": "vienna_dias",
+        "relative_path": "images/ISIC_0029938.jpg"
+      }
+    ]
+  },
+  {
+    "sha256": "b8b37d24e294c5182a1884741c109d8b3bc58edaa993e8c331bd2a15e3e603e6",
+    "image_count": 2,
+    "lesion_ids": [
+      "HAM_0002300"
+    ],
+    "classes": [
+      "nv"
+    ],
+    "sources": [
+      "vienna_dias"
+    ],
+    "cross_lesion": false,
+    "cross_class": false,
+    "cross_source": false,
+    "images": [
+      {
+        "image_id": "ISIC_0024366",
+        "lesion_id": "HAM_0002300",
+        "class_name": "nv",
+        "source": "vienna_dias",
+        "relative_path": "images/ISIC_0024366.jpg"
+      },
+      {
+        "image_id": "ISIC_0029861",
+        "lesion_id": "HAM_0002300",
+        "class_name": "nv",
+        "source": "vienna_dias",
+        "relative_path": "images/ISIC_0029861.jpg"
+      }
+    ]
+  }
+]
