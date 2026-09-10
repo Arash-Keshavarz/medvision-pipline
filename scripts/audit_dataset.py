@@ -1,4 +1,4 @@
-"""Run the MedVision dataset audit"""
+"""Run the HAM10000 dataset audit."""
 
 from __future__ import annotations
 
@@ -13,45 +13,38 @@ from medvision.data.audit import (
 )
 
 
-DEFAULT_DATASET_ROOT = Path(
-    "data/raw/skin-cancer-isic/Skin cancer ISIC The International Skin Imaging Collaboration"
-)
-
-DEFAULT_OUTPUT_DIRECTORY = Path("reports/dataset_audit")
-
-
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
 
-    parser = argparse.ArgumentParser(description="Audit the Skin Cancer ISIC dataset.")
+    parser = argparse.ArgumentParser(
+        description="Audit the HAM10000 dataset."
+    )
 
     parser.add_argument(
-        "--data-root",
+        "--dataset-root",
         type=Path,
-        default=DEFAULT_DATASET_ROOT,
-        help="Directory containing the Train and Test folders.",
+        default=Path("data/raw/ham10000"),
+        help="Directory containing images/ and HAM10000_metadata.csv.",
     )
 
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=DEFAULT_OUTPUT_DIRECTORY,
-        help="Directory in which audit results will be stored.",
+        default=Path("reports/ham10000_audit"),
+        help="Directory in which audit results are saved.",
     )
 
     return parser.parse_args()
 
 
 def main() -> None:
-    """Run the dataset audit."""
+    """Run the audit and print its main results."""
 
     arguments = parse_arguments()
 
-    print(f"Auditing dataset: {arguments.data_root}")
-
-    inventory = audit_dataset(arguments.data_root)
+    inventory = audit_dataset(arguments.dataset_root)
     summary = create_summary(inventory)
-    structure = validate_structure(inventory)
+    validation = validate_structure(inventory)
 
     save_audit_results(
         inventory=inventory,
@@ -61,8 +54,27 @@ def main() -> None:
     print(f"Total images: {summary['total_images']}")
     print(f"Readable images: {summary['readable_images']}")
     print(f"Unreadable images: {summary['unreadable_images']}")
-    print(f"Discovered splits: {structure['discovered_splits']}")
-    print(f"Discovered classes: {len(structure['discovered_classes'])}")
+    print(f"Unique lesions: {summary['unique_lesions']}")
+    print(
+        "Images without metadata: "
+        f"{summary['images_without_metadata']}"
+    )
+    print(
+        "Metadata rows without images: "
+        f"{summary['metadata_without_images']}"
+    )
+    print(
+        "Discovered classes: "
+        f"{validation['discovered_classes']}"
+    )
+    print(
+        "Missing classes: "
+        f"{validation['missing_classes']}"
+    )
+    print(
+        "Unexpected classes: "
+        f"{validation['unexpected_classes']}"
+    )
     print(f"Results saved to: {arguments.output_dir}")
 
 

@@ -1,4 +1,4 @@
-"""Detect exact and near-duplicate images."""
+"""Detect exact and near-duplicate HAM10000 images."""
 
 from __future__ import annotations
 
@@ -13,20 +13,25 @@ from medvision.data.duplicates import (
     save_duplicate_results,
 )
 
-DEFAULT_DATASET_ROOT = Path(
-    "data/raw/skin-cancer-isic/Skin cancer ISIC The International Skin Imaging Collaboration"
-)
 
-DEFAULT_OUTPUT_DIRECTORY = Path("reports/duplicate_detection")
+DEFAULT_DATASET_ROOT = Path("data/raw/ham10000")
+DEFAULT_OUTPUT_DIRECTORY = Path(
+    "reports/ham10000_duplicates"
+)
 
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
 
-    parser = argparse.ArgumentParser(description="Detect duplicate images in the ISIC dataset.")
+    parser = argparse.ArgumentParser(
+        description=(
+            "Detect exact and perceptually similar "
+            "HAM10000 images."
+        )
+    )
 
     parser.add_argument(
-        "--data-root",
+        "--dataset-root",
         type=Path,
         default=DEFAULT_DATASET_ROOT,
     )
@@ -41,7 +46,7 @@ def parse_arguments() -> argparse.Namespace:
         "--maximum-distance",
         type=int,
         default=6,
-        help="Maximum perceptual-hash distance.",
+        help="Maximum 64-bit perceptual-hash distance.",
     )
 
     return parser.parse_args()
@@ -52,11 +57,14 @@ def main() -> None:
 
     arguments = parse_arguments()
 
+    print(f"Dataset root: {arguments.dataset_root}")
     print("Building image hash inventory...")
 
-    inventory = build_hash_inventory(arguments.data_root)
+    inventory = build_hash_inventory(
+        arguments.dataset_root
+    )
 
-    print("Finding exact duplicates...")
+    print("Finding exact duplicate groups...")
 
     exact_groups = find_exact_duplicate_groups(inventory)
 

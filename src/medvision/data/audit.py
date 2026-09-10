@@ -1,228 +1,452 @@
-"""Dataset auditing utilities for the MedVision pipeline."""
+"""Dataset auditing utilities for HAM10000."""
 
 from __future__ import annotations
 
 import json
-from collections import Counter
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 from PIL import Image, UnidentifiedImageError
 
-SUPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 
-EXPECTED_SPLITS = {"Train", "Test"}
+SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
+
+REQUIRED_METADATA_COLUMNS = {
+    "lesion_id",
+    "image_id",
+    "dx",
+    "dx_type",
+    "age",
+    "sex",
+    "localization",
+    "dataset",
+}
 
 EXPECTED_CLASSES = {
-    "actinic keratosis",
-    "basal cell carcinoma",
-    "dermatofibroma",
-    "melanoma",
-    "nevus",
-    "pigmented benign keratosis",
-    "seborrheic keratosis",
-    "squamous cell carcinoma",
-    "vascular lesion",
+    "akiec",
+    "bcc",
+    "bkl",
+    "df",
+    "mel",
+    "nv",
+    "vasc",
 }
 
 
+def load_metadata(dataset_root: Path) -> pd.DataFrame:
+    """Load and validate the HAM10000 metadata file."""
+
+    metadata_path = dataset_root / "HAM10000_metadata.csv"
+
+    if not metadata_path.exists():
+        raise FileNotFoundError(
+            f"Metadata file not found: {metadata_path}"
+        )
+
+    metadata = pd.read_csv(metadata_path)
+
+    missing_columns = REQUIRED_METADATA_COLUMNS - set(metadata.columns)
+    if missing_columns:
+        raise ValueError(
+            "Metadata is missing required columns: "
+            f"{sorted(missing_columns)}"
+        )
+
+    return metadata
+
+
+def discover_images(images_root: Path) -> list[Path]:
+    """Discover supported image files recursively."""
+
+    if not images_root.exists():
+        raise FileNotFoundError(
+            f"Image directory not found: {images_root}"
+        )
+
+    return sorted(
+        path
+        for path in images_root.rglob("*")
+        if path.is_file()
+        and path.suffix.lower() in SUPPORTED_EXTENSIONS
+    )
+
+
 def inspect_image(
-    image_path: Path, dataset_root: Path, split: str, class_name: str
+    image_path: Path,
+    dataset_root: Path,
+    metadata_row: pd.Series | None,
 ) -> dict[str, Any]:
-    """Inspect one image and return its metadata."""
+    """Inspect one image and combine it with its metadata."""
 
     record: dict[str, Any] = {
-        "relative_path": image_path.relative_to(dataset_root).as_posix(),
-        "split": split,
-        "class_name": class_name,
+        "image_id": image_path.stem,
+        "relative_path": str(image_path.relative_to(dataset_root)),
         "extension": image_path.suffix.lower(),
-        "file_size_bytes": image_path.stat().st_size,
-        "readable": True,
+        "readable": False,
         "width": None,
         "height": None,
+        "aspect_ratio": None,
+        "pixel_count": None,
         "mode": None,
         "error": None,
+        "has_metadata": metadata_row is not None,
+        "lesion_id": None,
+        "class_name": None,
+        "dx_type": None,
+        "age": None,
+        "sex": None,
+        "localization": None,
+        "source": None,
     }
 
-    try:
-        with Image.open(image_path) as img:
-            record["width"], record["height"] = img.size
-            record["mode"] = img.mode
-            img.verify()  # Verify that the image is not corrupted
+    if metadata_row is not None:
+        record.update(
+            {
+                "lesion_id": metadata_row["lesion_id"],
+                "class_name": metadata_row["dx"],
+                "dx_type": metadata_row["dx_type"],
+                "age": metadata_row["age"],
+                "sex": metadata_row["sex"],
+                "localization": metadata_row["localization"],
+                "source": metadata_row["dataset"],
+            }
+        )
 
-    except (UnidentifiedImageError, OSError, ValueError) as e:
-        record["readable"] = False
-        record["error"] = str(e)
+    try:
+        with Image.open(image_path) as image:
+            image.load()
+
+            width, height = image.size
+
+            record.update(
+                {
+                    "readable": True,
+                    "width": width,
+                    "height": height,
+                    "aspect_ratio": width / height,
+                    "pixel_count": width * height,
+                    "mode": image.mode,
+                }
+            )
+
+    except (UnidentifiedImageError, OSError, ValueError) as error:
+        record["error"] = str(error)
 
     return record
 
 
 def audit_dataset(dataset_root: Path) -> pd.DataFrame:
-    """Inspect every supported image in the Dataset"""
+    """Create a complete image inventory for HAM10000."""
 
     dataset_root = dataset_root.resolve()
+    images_root = dataset_root / "images"
 
-    if not dataset_root.exists():
-        raise FileNotFoundError(f"Dataset root doesnt exist: {dataset_root}")
+    metadata = load_metadata(dataset_root)
 
+    if metadata["image_id"].duplicated().any():
+        duplicate_ids = metadata.loc[
+            metadata["image_id"].duplicated(keep=False),
+            "image_id",
+        ].tolist()
+
+        raise ValueError(
+            "Duplicate image_id values found in metadata: "
+            f"{duplicate_ids[:10]}"
+        )
+
+    image_paths = discover_images(images_root)
+
+    if not image_paths:
+        raise ValueError(
+            f"No supported image found under: {images_root}"
+        )
+
+    metadata_by_id = metadata.set_index("image_id")
     records: list[dict[str, Any]] = []
-    for split_directory in sorted(dataset_root.iterdir()):
-        if not split_directory.is_dir():
-            continue
 
-        split = split_directory.name
+    for image_path in image_paths:
+        image_id = image_path.stem
 
-        for class_directory in sorted(split_directory.iterdir()):
-            if not class_directory.is_dir():
-                continue
+        metadata_row = (
+            metadata_by_id.loc[image_id]
+            if image_id in metadata_by_id.index
+            else None
+        )
 
-            class_name = class_directory.name
+        records.append(
+            inspect_image(
+                image_path=image_path,
+                dataset_root=dataset_root,
+                metadata_row=metadata_row,
+            )
+        )
 
-            for image_path in sorted(class_directory.rglob("*")):
-                if image_path.is_file() and image_path.suffix.lower() in SUPORTED_EXTENSIONS:
-                    records.append(
-                        inspect_image(
-                            image_path=image_path,
-                            dataset_root=dataset_root,
-                            split=split,
-                            class_name=class_name,
-                        )
-                    )
-    if not records:
-        raise ValueError(f"No supported image found under : {dataset_root}")
+    inventory = pd.DataFrame(records)
 
-    return pd.DataFrame(records)
+    metadata_ids = set(metadata["image_id"])
+    discovered_ids = set(inventory["image_id"])
 
+    inventory.attrs["metadata_rows"] = len(metadata)
+    inventory.attrs["metadata_image_ids"] = len(metadata_ids)
+    inventory.attrs["missing_image_ids"] = sorted(
+        metadata_ids - discovered_ids
+    )
+    inventory.attrs["images_without_metadata"] = sorted(
+        discovered_ids - metadata_ids
+    )
 
-def validate_structure(inventory: pd.DataFrame) -> dict[str, Any]:
-    """Validate discovered splits and classes."""
-
-    discovered_splits = set(inventory["split"].unique())
-    discovered_classes = set(inventory["class_name"].unique())
-
-    return {
-        "discovered_splits": sorted(discovered_splits),
-        "missing_splits": sorted(EXPECTED_SPLITS - discovered_splits),
-        "unexpected_splits": sorted(discovered_splits - EXPECTED_SPLITS),
-        "discovered_classes": sorted(discovered_classes),
-        "missing_classes": sorted(EXPECTED_CLASSES - discovered_classes),
-        "unexpected_classes": sorted(discovered_classes - EXPECTED_CLASSES),
-    }
+    return inventory
 
 
 def create_summary(inventory: pd.DataFrame) -> dict[str, Any]:
-    """Create a JSON-serializable dataset summary."""
+    """Create the main dataset summary."""
 
-    readable = inventory[inventory["readable"]].copy()
-    unreadable = inventory[~inventory["readable"]].copy()
+    readable = inventory[inventory["readable"]]
 
-    class_counts = inventory.groupby(["split", "class_name"]).size().sort_index()
+    class_counts = (
+        inventory["class_name"]
+        .dropna()
+        .value_counts()
+        .sort_index()
+    )
+
+    source_counts = (
+        inventory["source"]
+        .dropna()
+        .value_counts()
+        .sort_index()
+    )
+
+    mode_counts = (
+        readable["mode"]
+        .dropna()
+        .value_counts()
+        .sort_index()
+    )
+
+    extension_counts = (
+        inventory["extension"]
+        .value_counts()
+        .sort_index()
+    )
 
     return {
         "total_images": int(len(inventory)),
-        "readable_images": int(len(readable)),
-        "unreadable_images": int(len(unreadable)),
+        "readable_images": int(inventory["readable"].sum()),
+        "unreadable_images": int((~inventory["readable"]).sum()),
+        "images_with_metadata": int(
+            inventory["has_metadata"].sum()
+        ),
+        "images_without_metadata": int(
+            (~inventory["has_metadata"]).sum()
+        ),
+        "metadata_without_images": len(
+            inventory.attrs.get("missing_image_ids", [])
+        ),
+        "unique_image_ids": int(inventory["image_id"].nunique()),
+        "unique_lesions": int(
+            inventory["lesion_id"].dropna().nunique()
+        ),
         "class_counts": {
-            f"{split}/{class_name}": int(count)
-            for (split, class_name), count in class_counts.items()
+            str(key): int(value)
+            for key, value in class_counts.items()
         },
-        "image_modes": {str(mode): int(count) for mode, count in Counter(readable["mode"]).items()},
-        "minimum_width": int(readable["width"].min()),
-        "maximum_width": int(readable["width"].max()),
-        "minimum_height": int(readable["height"].min()),
-        "maximum_height": int(readable["height"].max()),
+        "source_counts": {
+            str(key): int(value)
+            for key, value in source_counts.items()
+        },
+        "image_modes": {
+            str(key): int(value)
+            for key, value in mode_counts.items()
+        },
         "extensions": {
-            str(extension): int(count)
-            for extension, count in Counter(inventory["extension"]).items()
+            str(key): int(value)
+            for key, value in extension_counts.items()
         },
+        "minimum_width": (
+            int(readable["width"].min()) if not readable.empty else None
+        ),
+        "median_width": (
+            float(readable["width"].median())
+            if not readable.empty
+            else None
+        ),
+        "maximum_width": (
+            int(readable["width"].max()) if not readable.empty else None
+        ),
+        "minimum_height": (
+            int(readable["height"].min())
+            if not readable.empty
+            else None
+        ),
+        "median_height": (
+            float(readable["height"].median())
+            if not readable.empty
+            else None
+        ),
+        "maximum_height": (
+            int(readable["height"].max())
+            if not readable.empty
+            else None
+        ),
     }
 
 
-def create_dimension_summary(
-    inventory: pd.DataFrame,
-) -> pd.DataFrame:
-    """Summarize image dimensions separately for every split."""
+def validate_structure(inventory: pd.DataFrame) -> dict[str, Any]:
+    """Validate HAM10000 classes, metadata, and image mappings."""
 
-    readable = inventory[inventory["readable"]].copy()
+    discovered_classes = set(
+        inventory["class_name"].dropna().unique()
+    )
 
-    readable["pixel_count"] = readable["width"] * readable["height"]
-    readable["aspect_ratio"] = readable["width"] / readable["height"]
+    missing_values = {
+        column: int(inventory[column].isna().sum())
+        for column in (
+            "lesion_id",
+            "class_name",
+            "dx_type",
+            "age",
+            "sex",
+            "localization",
+            "source",
+        )
+    }
+
+    return {
+        "expected_classes": sorted(EXPECTED_CLASSES),
+        "discovered_classes": sorted(discovered_classes),
+        "missing_classes": sorted(
+            EXPECTED_CLASSES - discovered_classes
+        ),
+        "unexpected_classes": sorted(
+            discovered_classes - EXPECTED_CLASSES
+        ),
+        "missing_image_ids": inventory.attrs.get(
+            "missing_image_ids",
+            [],
+        ),
+        "images_without_metadata": inventory.attrs.get(
+            "images_without_metadata",
+            [],
+        ),
+        "duplicate_image_ids": int(
+            inventory["image_id"].duplicated().sum()
+        ),
+        "missing_metadata_values": missing_values,
+    }
+
+
+def create_class_summary(inventory: pd.DataFrame) -> pd.DataFrame:
+    """Summarize images and lesions per diagnosis class."""
 
     return (
-        readable.groupby("split")
+        inventory.dropna(subset=["class_name"])
+        .groupby("class_name")
         .agg(
-            image_count=("relative_path", "count"),
-            minimum_width=("width", "min"),
-            median_width=("width", "median"),
-            maximum_width=("width", "max"),
-            minimum_height=("height", "min"),
-            median_height=("height", "median"),
-            maximum_height=("height", "max"),
-            median_pixel_count=("pixel_count", "median"),
-            median_aspect_ratio=("aspect_ratio", "median"),
+            image_count=("image_id", "count"),
+            lesion_count=("lesion_id", "nunique"),
         )
         .reset_index()
+        .sort_values("class_name")
     )
 
 
-def save_class_distribution(
+def create_source_summary(inventory: pd.DataFrame) -> pd.DataFrame:
+    """Summarize images, lesions, and classes per source."""
+
+    return (
+        inventory.dropna(subset=["source"])
+        .groupby("source")
+        .agg(
+            image_count=("image_id", "count"),
+            lesion_count=("lesion_id", "nunique"),
+            class_count=("class_name", "nunique"),
+        )
+        .reset_index()
+        .sort_values("source")
+    )
+
+
+def create_lesion_summary(inventory: pd.DataFrame) -> pd.DataFrame:
+    """Summarize the number of images belonging to each lesion."""
+
+    return (
+        inventory.dropna(subset=["lesion_id"])
+        .groupby("lesion_id")
+        .agg(
+            image_count=("image_id", "count"),
+            class_count=("class_name", "nunique"),
+            source_count=("source", "nunique"),
+            class_name=("class_name", "first"),
+            source=("source", "first"),
+        )
+        .reset_index()
+        .sort_values(
+            ["image_count", "lesion_id"],
+            ascending=[False, True],
+        )
+    )
+
+
+def plot_class_distribution(
     inventory: pd.DataFrame,
     output_path: Path,
 ) -> None:
-    """Save a class-distribution chart."""
+    """Save the diagnosis-class distribution plot."""
 
-    counts = inventory.groupby(["class_name", "split"]).size().unstack(fill_value=0).sort_index()
+    counts = (
+        inventory["class_name"]
+        .dropna()
+        .value_counts()
+        .sort_values(ascending=False)
+    )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    axis = counts.plot(
-        kind="bar",
-        figsize=(12, 6),
-        color={"Train": "#2F75B5", "Test": "#F4A261"},
-    )
-
-    axis.set_title("Skin Cancer ISIC Class Distribution")
-    axis.set_xlabel("Class")
-    axis.set_ylabel("Number of Images")
-    axis.legend(title="Split")
-    plt.xticks(rotation=40, ha="right")
+    plt.figure(figsize=(9, 6))
+    counts.plot(kind="bar")
+    plt.title("HAM10000 Class Distribution")
+    plt.xlabel("Diagnosis")
+    plt.ylabel("Number of images")
+    plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
-    plt.savefig(output_path, dpi=180)
+    plt.savefig(output_path, dpi=160)
     plt.close()
 
 
-def create_class_balance_summary(
-    inventory: pd.DataFrame,
-) -> dict[str, Any]:
-    """Summarize training-set class imbalance."""
-
-    training_counts = (
-        inventory[inventory["split"] == "Train"].groupby("class_name").size().sort_values()
-    )
-
-    minimum_count = int(training_counts.min())
-    maximum_count = int(training_counts.max())
-
-    return {
-        "minimum_class": str(training_counts.idxmin()),
-        "minimum_count": minimum_count,
-        "maximum_class": str(training_counts.idxmax()),
-        "maximum_count": maximum_count,
-        "imbalance_ratio": round(
-            maximum_count / minimum_count,
-            2,
-        ),
-        "counts": {str(class_name): int(count) for class_name, count in training_counts.items()},
-    }
-
-
-def save_dimension_distribution(
+def plot_source_distribution(
     inventory: pd.DataFrame,
     output_path: Path,
 ) -> None:
-    """Save a scatter plot of image dimensions."""
+    """Save the source distribution plot."""
+
+    counts = (
+        inventory["source"]
+        .dropna()
+        .value_counts()
+        .sort_values(ascending=False)
+    )
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    plt.figure(figsize=(8, 5))
+    counts.plot(kind="bar")
+    plt.title("HAM10000 Source Distribution")
+    plt.xlabel("Source")
+    plt.ylabel("Number of images")
+    plt.xticks(rotation=30, ha="right")
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=160)
+    plt.close()
+
+
+def plot_image_dimensions(
+    inventory: pd.DataFrame,
+    output_path: Path,
+) -> None:
+    """Save a scatter plot of readable image dimensions."""
 
     readable = inventory[inventory["readable"]]
 
@@ -230,22 +454,21 @@ def save_dimension_distribution(
 
     plt.figure(figsize=(8, 6))
 
-    for split, group in readable.groupby("split"):
+    for source, group in readable.groupby("source"):
         plt.scatter(
             group["width"],
             group["height"],
-            label=split,
+            label=source,
             alpha=0.5,
             s=15,
         )
 
-    plt.title("Image Dimension Distribution")
+    plt.title("HAM10000 Image Dimension Distribution")
     plt.xlabel("Width")
     plt.ylabel("Height")
-    plt.legend()
-    plt.grid(alpha=0.2)
+    plt.legend(title="Source")
     plt.tight_layout()
-    plt.savefig(output_path, dpi=180)
+    plt.savefig(output_path, dpi=160)
     plt.close()
 
 
@@ -253,49 +476,55 @@ def save_audit_results(
     inventory: pd.DataFrame,
     output_directory: Path,
 ) -> None:
-    """Save inventory, summaries, and figures."""
+    """Save audit tables, summaries, and plots."""
 
     output_directory.mkdir(parents=True, exist_ok=True)
 
     summary = create_summary(inventory)
-    structure = validate_structure(inventory)
-    class_imbalance = create_class_balance_summary(inventory)
-    dimension_summary = create_dimension_summary(inventory)
+    validation = validate_structure(inventory)
 
-    inventory.to_csv(output_directory / "dataset_inventory.csv", index=False)
+    report = {
+        "summary": summary,
+        "structure_validation": validation,
+    }
 
-    class_summary = (
-        inventory.groupby(["split", "class_name"]).size().rename("image_count").reset_index()
+    inventory.to_csv(
+        output_directory / "image_inventory.csv",
+        index=False,
     )
 
-    class_summary.to_csv(
+    create_class_summary(inventory).to_csv(
         output_directory / "class_summary.csv",
         index=False,
     )
 
-    report = {
-        "summary": summary,
-        "structure_validation": structure,
-        "training_class_imbalance": class_imbalance,
-    }
+    create_source_summary(inventory).to_csv(
+        output_directory / "source_summary.csv",
+        index=False,
+    )
 
-    with (output_directory / "dataset_audit.json").open(
+    create_lesion_summary(inventory).to_csv(
+        output_directory / "lesion_summary.csv",
+        index=False,
+    )
+
+    with (output_directory / "audit_summary.json").open(
         "w",
         encoding="utf-8",
     ) as file:
         json.dump(report, file, indent=2)
 
-    save_class_distribution(
+    plot_class_distribution(
         inventory,
         output_directory / "class_distribution.png",
     )
 
-    save_dimension_distribution(
+    plot_source_distribution(
         inventory,
-        output_directory / "image_dimensions.png",
+        output_directory / "source_distribution.png",
     )
 
-    dimension_summary.to_csv(
-        output_directory / "dimension_summary.csv",
-        index=False,
+    plot_image_dimensions(
+        inventory,
+        output_directory / "image_dimensions.png",
     )
