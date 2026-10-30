@@ -15,7 +15,7 @@ import time
 from dataclasses import dataclass, replace
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import torch
 import torchvision
@@ -28,6 +28,9 @@ from medvision.training.config import DataSettings, TrainingConfig
 from medvision.training.losses import build_criterion, class_weights_from_manifest
 from medvision.training.reproducibility import seed_everything, select_device
 from medvision.training.trainer import fit
+
+if TYPE_CHECKING:
+    from medvision.tracking.mlflow_tracking import MlflowRunTracker
 
 TRAINING_SPLITS = ("train", "validation")
 
@@ -136,13 +139,49 @@ def build_loaders(
     }
 
 
+def _close_tracking(
+    tracker: MlflowRunTracker,
+    run_directory: Path,
+    metadata: dict[str, Any],
+    mlflow_status: str,
+) -> None:
+    """Finalise ``run_metadata.json``, then log it and close the MLflow run.
+
+    The local file is written before it is logged, so the MLflow copy matches
+    it. If logging or closing fails, the local file is updated again with the
+    error; that update cannot reach MLflow. Marking the MLflow run FAILED is
+    only attempted, so its status may need reconciling with the local file.
+    """
+
+    metadata["tracking"].update(
+        {"mlflow_status": "FAILED" if tracker.error else mlflow_status, "error": tracker.error}
+    )
+    _write_json(run_directory / "run_metadata.json", metadata)
+
+    if mlflow_status == "FINISHED":
+        tracker.finish(run_directory)
+    else:
+        tracker.abort(run_directory, mlflow_status)
+
+    if tracker.error != metadata["tracking"]["error"]:
+        metadata["tracking"].update({"mlflow_status": "FAILED", "error": tracker.error})
+        _write_json(run_directory / "run_metadata.json", metadata)
+
+
 def run_baseline(
     config: TrainingConfig,
     data_settings: DataSettings,
     smoke: SmokeSettings | None = None,
     run_name: str | None = None,
+    tracker: MlflowRunTracker | None = None,
 ) -> Path:
-    """Train the baseline and return the run directory."""
+    """Train the baseline and return the run directory.
+
+    With a ``tracker``, the run is also tracked in MLflow; local artifacts
+    are written exactly as without one. A failure or interruption during
+    training is recorded as ``failed`` or ``interrupted`` in
+    ``run_metadata.json`` (and in MLflow), then re-raised.
+    """
 
     if smoke is not None:
         config = replace(config, weights="none", max_epochs=1)
@@ -218,6 +257,17 @@ def run_baseline(
     if class_weights is not None:
         _write_json(run_directory / "class_weights.json", class_weights)
 
+    if tracker is not None:
+        try:
+            metadata["tracking"] = tracker.start(run_directory)
+        except Exception as error:
+            metadata.update({"status": "failed", "error": f"{type(error).__name__}: {error}"})
+            _write_json(run_directory / "run_metadata.json", metadata)
+            raise
+
+        _write_json(run_directory / "run_metadata.json", metadata)
+        print(f"MLflow run: {metadata['tracking']['run_id']} ({tracker.settings.tracking_uri})")
+
     print(f"Run directory: {run_directory}")
     print(f"Device: {device} | seed: {config.seed} | weights: {config.weights}")
     print(f"Loss: {config.loss}")
@@ -232,19 +282,37 @@ def run_baseline(
         f"validation images: {len(loaders['validation'].dataset):,}"
     )
 
-    history, tracker = fit(
-        model=model,
-        train_loader=loaders["train"],
-        validation_loader=loaders["validation"],
-        optimizer=optimizer,
-        criterion=criterion,
-        device=device,
-        max_epochs=config.max_epochs,
-        patience=config.early_stopping_patience,
-        run_directory=run_directory,
-        config=resolved_config,
-        loss_name=config.loss,
-    )
+    try:
+        history, score_tracker = fit(
+            model=model,
+            train_loader=loaders["train"],
+            validation_loader=loaders["validation"],
+            optimizer=optimizer,
+            criterion=criterion,
+            device=device,
+            max_epochs=config.max_epochs,
+            patience=config.early_stopping_patience,
+            run_directory=run_directory,
+            config=resolved_config,
+            loss_name=config.loss,
+            epoch_callback=None if tracker is None else tracker.log_epoch,
+        )
+    except BaseException as error:
+        interrupted = isinstance(error, KeyboardInterrupt)
+        metadata.update(
+            {
+                "status": "interrupted" if interrupted else "failed",
+                "finished_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+                "elapsed_seconds": round(time.perf_counter() - start, 1),
+                "error": f"{type(error).__name__}: {error}",
+            }
+        )
+        _write_json(run_directory / "run_metadata.json", metadata)
+
+        if tracker is not None:
+            _close_tracking(tracker, run_directory, metadata, "KILLED" if interrupted else "FAILED")
+
+        raise
 
     metadata.update(
         {
@@ -253,10 +321,13 @@ def run_baseline(
             "elapsed_seconds": round(time.perf_counter() - start, 1),
             "epochs_completed": len(history),
             "stopped_early": len(history) < config.max_epochs,
-            "best_epoch": tracker.best_epoch,
-            "best_validation_macro_f1": tracker.best_score,
+            "best_epoch": score_tracker.best_epoch,
+            "best_validation_macro_f1": score_tracker.best_score,
         }
     )
     _write_json(run_directory / "run_metadata.json", metadata)
+
+    if tracker is not None:
+        _close_tracking(tracker, run_directory, metadata, "FINISHED")
 
     return run_directory

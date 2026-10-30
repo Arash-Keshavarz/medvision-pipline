@@ -8,15 +8,27 @@ Offline smoke run (random initialisation, one epoch, small subsets):
 
     python scripts/train_baseline.py --smoke
 
+Optional local MLflow tracking (stored under mlruns/, ignored by Git):
+
+    python scripts/train_baseline.py --config configs/baseline_resnet18.yaml --mlflow
+
 The test split is never loaded by this script.
 """
 
 from __future__ import annotations
 
 import argparse
+import signal
+import sys
 from dataclasses import replace
 from pathlib import Path
 
+from medvision.tracking.mlflow_tracking import (
+    DEFAULT_EXPERIMENT_NAME,
+    DEFAULT_TRACKING_DIRECTORY,
+    MlflowRunTracker,
+    TrackingSettings,
+)
 from medvision.training.baseline import SmokeSettings, run_baseline
 from medvision.training.config import load_data_settings, load_training_config
 
@@ -57,8 +69,26 @@ def parse_arguments() -> argparse.Namespace:
     )
     parser.add_argument("--smoke-train-size", type=int, default=SmokeSettings.train_size)
     parser.add_argument("--smoke-validation-size", type=int, default=SmokeSettings.validation_size)
+    parser.add_argument(
+        "--mlflow",
+        action="store_true",
+        help="Also track the run in local MLflow storage (off by default).",
+    )
+    parser.add_argument(
+        "--mlflow-dir",
+        type=Path,
+        default=DEFAULT_TRACKING_DIRECTORY,
+        help="Local MLflow directory (SQLite database and artifacts).",
+    )
+    parser.add_argument("--mlflow-experiment", default=DEFAULT_EXPERIMENT_NAME)
 
     return parser.parse_args()
+
+
+def raise_keyboard_interrupt(signal_number: int, frame: object) -> None:
+    """Treat SIGTERM like Ctrl-C so the run is closed as interrupted."""
+
+    raise KeyboardInterrupt(f"signal {signal_number}")
 
 
 def main() -> None:
@@ -78,9 +108,20 @@ def main() -> None:
         else None
     )
 
-    run_directory = run_baseline(config, data_settings, smoke, arguments.run_name)
+    tracker = (
+        MlflowRunTracker(TrackingSettings(arguments.mlflow_dir, arguments.mlflow_experiment))
+        if arguments.mlflow
+        else None
+    )
+    signal.signal(signal.SIGTERM, raise_keyboard_interrupt)
+
+    run_directory = run_baseline(config, data_settings, smoke, arguments.run_name, tracker)
 
     print(f"Artifacts saved to: {run_directory}")
+
+    if tracker is not None and tracker.error is not None:
+        print(f"ERROR: MLflow tracking failed: {tracker.error}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

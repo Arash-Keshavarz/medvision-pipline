@@ -7,12 +7,33 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
+import torch
 from PIL import Image
+from torch import nn
 
-from medvision.data.constants import CLASS_NAMES, SPLIT_NAMES
+from medvision.data.constants import CLASS_NAMES, NUM_CLASSES, SPLIT_NAMES
 
 IMAGES_PER_SPLIT = 10
 IMAGE_SIZE = (60, 45)
+
+
+class TinyModel(nn.Module):
+    """Tiny classifier for tests where the architecture is irrelevant.
+
+    Pools any image to 3x4x4 and applies one linear layer, so checkpoints are
+    a few kilobytes instead of ResNet18's ~134 MB. Records its train/eval
+    mode on every forward pass.
+    """
+
+    def __init__(self, num_classes: int = NUM_CLASSES) -> None:
+        super().__init__()
+        self.pool = nn.AdaptiveAvgPool2d(4)
+        self.linear = nn.Linear(3 * 4 * 4, num_classes)
+        self.modes: list[bool] = []
+
+    def forward(self, images: torch.Tensor) -> torch.Tensor:
+        self.modes.append(self.training)
+        return self.linear(self.pool(images).flatten(1))
 
 
 @dataclass(frozen=True)

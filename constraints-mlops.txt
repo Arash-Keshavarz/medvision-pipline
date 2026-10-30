@@ -1,0 +1,14 @@
+# Tested MLflow environment for the optional `mlops` extra (Milestone 5).
+#
+# Use as a pip constraints file. It pins only the versions of the packages
+# listed here and installs nothing by itself; other dependencies are not
+# pinned:
+#
+#     pip install -e '.[mlops]' -c constraints-mlops.txt
+#
+# Tracking and import were tested with Python 3.11.9, torch 2.14.0, and the
+# versions below, using local SQLite storage only. Other versions allowed by
+# pyproject.toml (mlflow>=2.16) are untested.
+mlflow==3.17.2
+mlflow-skinny==3.17.2
+mlflow-tracing==3.17.2

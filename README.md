@@ -154,3 +154,79 @@ validation macro F1.
 ```bash
 python scripts/train_baseline.py --config configs/resnet18_weighted_ce.yaml
 ```
+
+The comparison with experiment A is in
+`reports/experiments/experiment_b_weighted_ce_vs_a.md`.
+
+### Experiment tracking (MLflow, optional)
+
+Tracking is off by default and needs the `mlops` extra. Install it with the
+tested MLflow version (3.17.2) recorded in `constraints-mlops.txt`:
+`pip install -e '.[mlops]' -c constraints-mlops.txt`. Other versions allowed
+by `pyproject.toml` are untested. It is local only: an SQLite database and
+artifact directory under `mlruns/` (ignored by Git), with no credentials or
+remote server, and with MLflow telemetry disabled.
+
+```bash
+# Track a new training run (local run directory is written as usual).
+python scripts/train_baseline.py --config configs/baseline_resnet18.yaml --mlflow
+
+# Import finished run directories (reads saved files only; no training).
+python scripts/import_mlflow_runs.py runs/baseline_resnet18/<run-id> ...
+
+# Browse runs at http://127.0.0.1:5000
+mlflow ui --backend-store-uri sqlite:///mlruns/mlflow.db --host 127.0.0.1 --port 5000
+```
+
+Each MLflow run records the following:
+
+- configuration, seeds, Git commit and dirty state, manifest hashes,
+  environment, and class-weight provenance;
+- per-epoch metrics (step = epoch);
+- `best.*` (selected epoch) and `final.*` (last epoch) summaries;
+- small run files and diagnostic plots.
+
+Smoke runs are tagged `medvision.smoke=true`. Imported runs keep the original
+run name, start and end times, and source commit
+(`mlflow.source.git.commit`); the importer's commit is recorded separately,
+and importing the same run twice is refused.
+
+Checkpoints are **not** copied into MLflow. `checkpoints/checkpoint_reference.json`
+records each checkpoint's local path, size, and SHA-256. That path is valid
+only on the machine where the run was saved; it is not a portable model
+artifact. The run directory remains the source of truth.
+
+If tracking fails during training, the following happens:
+
+- training continues;
+- a warning is printed, and an attempt is made to mark the MLflow run `FAILED`;
+- the failure is recorded in `run_metadata.json` (`tracking.mlflow_status`
+  and `tracking.error`);
+- the script exits non-zero.
+
+If tracking cannot start, training does not begin.
+
+`run_metadata.json` is finalised (run status `completed`, `failed`, or
+`interrupted`, and the expected MLflow status) before it is logged, so the
+MLflow copy matches the local file when logging succeeds.
+
+If an MLflow backend operation fails (for example while logging the final
+files or closing the run), the local `run_metadata.json` records the error
+and `tracking.mlflow_status: FAILED`. Marking the MLflow run `FAILED` is only
+attempted. If the backend is still failing, the MLflow run may stay
+`RUNNING` or keep an older status and copy of the metadata. The local file is
+authoritative, and the MLflow status may need manual reconciliation.
+
+**Recovery keeps failed runs as history.** Do not delete them by default.
+The importer refuses a run directory that is already in the target
+experiment, including when that run is `FAILED`. This is a current
+limitation. To record the complete run without deleting anything, import it
+into a separate experiment:
+
+```bash
+python scripts/import_mlflow_runs.py runs/<output-root>/<run-id> \
+    --mlflow-experiment ham10000-classification-recovered
+```
+
+The `FAILED` run stays in the original experiment, tagged
+`medvision.tracking_error`.

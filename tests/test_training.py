@@ -11,6 +11,7 @@ import torch
 from torch import nn
 
 import medvision.data.loaders as loaders_module
+import medvision.training.baseline as baseline_module
 from medvision.data.constants import CLASS_TO_INDEX, NUM_CLASSES
 from medvision.data.loaders import LoaderConfig
 from medvision.training.baseline import (
@@ -34,7 +35,7 @@ from medvision.training.trainer import (
     run_epoch,
     save_checkpoint,
 )
-from tests.conftest import SyntheticDataset
+from tests.conftest import SyntheticDataset, TinyModel
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CPU = torch.device("cpu")
@@ -46,19 +47,6 @@ def block_network(monkeypatch: pytest.MonkeyPatch) -> None:
         raise AssertionError("Tests must not access the network.")
 
     monkeypatch.setattr(socket.socket, "connect", refuse)
-
-
-class TinyModel(nn.Module):
-    """Linear classifier on 3x4x4 images that records its train/eval mode."""
-
-    def __init__(self, num_classes: int = NUM_CLASSES) -> None:
-        super().__init__()
-        self.linear = nn.Linear(3 * 4 * 4, num_classes)
-        self.modes: list[bool] = []
-
-    def forward(self, images: torch.Tensor) -> torch.Tensor:
-        self.modes.append(self.training)
-        return self.linear(images.flatten(1))
 
 
 def make_batches(sizes: list[int], seed: int = 0) -> list[dict[str, torch.Tensor]]:
@@ -465,6 +453,25 @@ def test_seed_everything_repeats_random_draws() -> None:
 # Entry point on synthetic data
 
 
+@pytest.fixture
+def model_requests(monkeypatch: pytest.MonkeyPatch) -> list[bool]:
+    """Replace ResNet18 with TinyModel in run_baseline; record ``pretrained`` per call.
+
+    The architecture is irrelevant to these end-to-end tests, and ResNet18
+    checkpoints would add about 270 MB of temporary files per run.
+    tests/test_model.py covers the real ResNet18.
+    """
+
+    requests: list[bool] = []
+
+    def build_tiny_model(pretrained: bool) -> TinyModel:
+        requests.append(pretrained)
+        return TinyModel()
+
+    monkeypatch.setattr(baseline_module, "build_resnet18", build_tiny_model)
+    return requests
+
+
 def synthetic_settings(synthetic_dataset: SyntheticDataset) -> DataSettings:
     return DataSettings(
         dataset_root=synthetic_dataset.root,
@@ -485,6 +492,7 @@ def synthetic_config(tmp_path: Path) -> TrainingConfig:
     )
 
 
+@pytest.mark.usefixtures("model_requests")
 def test_entry_point_never_reads_the_test_split(
     synthetic_dataset: SyntheticDataset,
     tmp_path: Path,
@@ -512,6 +520,7 @@ def test_entry_point_never_reads_the_test_split(
 def test_smoke_run_writes_marked_artifacts(
     synthetic_dataset: SyntheticDataset,
     tmp_path: Path,
+    model_requests: list[bool],
 ) -> None:
     config = replace(synthetic_config(tmp_path), weights="imagenet", max_epochs=5)
 
@@ -523,6 +532,7 @@ def test_smoke_run_writes_marked_artifacts(
     )
 
     assert run_directory.name.startswith("smoke-")
+    assert model_requests == [False]
     assert {path.name for path in run_directory.iterdir()} == {
         "resolved_config.json",
         "class_mapping.json",
@@ -549,6 +559,7 @@ def test_smoke_run_writes_marked_artifacts(
     assert json.loads((run_directory / "class_mapping.json").read_text()) == dict(CLASS_TO_INDEX)
 
 
+@pytest.mark.usefixtures("model_requests")
 def test_plain_run_writes_no_class_weights(
     synthetic_dataset: SyntheticDataset,
     tmp_path: Path,
@@ -573,6 +584,7 @@ def test_plain_run_writes_no_class_weights(
     )
 
 
+@pytest.mark.usefixtures("model_requests")
 def test_weighted_run_saves_weight_provenance(
     synthetic_dataset: SyntheticDataset,
     tmp_path: Path,
@@ -607,6 +619,7 @@ def test_weighted_run_saves_weight_provenance(
     assert history["validation_unweighted_cross_entropy"].notna().all()
 
 
+@pytest.mark.usefixtures("model_requests")
 def test_cpu_runs_with_same_seed_are_identical(
     synthetic_dataset: SyntheticDataset,
     tmp_path: Path,

@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import math
 import time
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from contextlib import nullcontext
 from dataclasses import dataclass
 from pathlib import Path
@@ -218,6 +218,7 @@ def fit(
     run_directory: Path,
     config: dict[str, Any],
     loss_name: str = "cross_entropy",
+    epoch_callback: Callable[[dict[str, Any]], None] | None = None,
 ) -> tuple[list[dict[str, Any]], BestScoreTracker]:
     """Train with validation macro-F1 model selection and early stopping.
 
@@ -229,7 +230,8 @@ def fit(
 
     Writes ``history.csv`` and ``last.pt`` after every epoch, and ``best.pt``,
     ``best_validation_metrics.json``, and ``best_validation_confusion_matrix.csv``
-    whenever validation macro F1 strictly improves.
+    whenever validation macro F1 strictly improves. ``epoch_callback``, if
+    given, receives each epoch's history row after those files are written.
     """
 
     tracker = BestScoreTracker(patience=patience)
@@ -293,6 +295,9 @@ def fit(
             f"{' (best)' if improved else ''} "
             f"[{history[-1]['seconds']:.1f}s]"
         )
+
+        if epoch_callback is not None:
+            epoch_callback(history[-1])
 
         if tracker.should_stop:
             print(f"Early stopping: no improvement for {patience} epochs.")
