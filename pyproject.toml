@@ -63,7 +63,7 @@ mlops = [
 
 [project.urls]
 Repository = "https://github.com/Arash-Keshavarz/medvision-pipeline"
-Dataset = "https://www.kaggle.com/datasets/nodoubttome/skin-cancer9-classesisic"
+Dataset = "https://doi.org/10.7910/DVN/DBW86T"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/medvision"]

@@ -1,0 +1,13 @@
+split,source,image_count,lesion_count,image_percentage_in_split
+train,rosendahl,1569,1083,22.37
+train,vidir_modern,2369,1194,33.78
+train,vidir_molemax,2768,2768,39.47
+train,vienna_dias,307,193,4.38
+validation,rosendahl,331,224,22.05
+validation,vidir_modern,497,251,33.11
+validation,vidir_molemax,595,595,39.64
+validation,vienna_dias,78,51,5.2
+test,rosendahl,359,245,23.92
+test,vidir_modern,497,250,33.11
+test,vidir_molemax,591,591,39.37
+test,vienna_dias,54,34,3.6

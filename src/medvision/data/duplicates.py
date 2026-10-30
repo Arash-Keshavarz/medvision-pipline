@@ -12,7 +12,6 @@ import imagehash
 import pandas as pd
 from PIL import Image
 
-
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 
 NEAR_PAIR_COLUMNS = [
@@ -56,6 +55,9 @@ def calculate_perceptual_hash(image_path: Path) -> str:
 
 def hamming_distance(first_hash: str, second_hash: str) -> int:
     """Calculate the Hamming distance between hexadecimal hashes."""
+
+    if len(first_hash) != len(second_hash):
+        raise ValueError("Hashes must have the same length.")
 
     return (int(first_hash, 16) ^ int(second_hash, 16)).bit_count()
 
@@ -176,6 +178,7 @@ def find_exact_duplicate_groups(
                 "lesion_ids": lesion_ids,
                 "classes": classes,
                 "sources": sources,
+                "same_lesion": len(lesion_ids) == 1,
                 "cross_lesion": len(lesion_ids) > 1,
                 "cross_class": len(classes) > 1,
                 "cross_source": len(sources) > 1,
@@ -192,7 +195,7 @@ class _BKNode:
 
     value: int
     row_indices: list[int] = field(default_factory=list)
-    children: dict[int, "_BKNode"] = field(default_factory=dict)
+    children: dict[int, _BKNode] = field(default_factory=dict)
 
     def add(self, value: int, row_index: int) -> None:
         """Add a hash value to the tree."""
@@ -320,13 +323,19 @@ def create_duplicate_summary(
     exact_groups: list[dict[str, Any]],
     near_pairs: pd.DataFrame,
 ) -> dict[str, int]:
-    """Create a summary of exact and near duplicates."""
+    """Create a summary of exact and near duplicates.
+
+    Same-lesion matches are expected in HAM10000, which contains repeated
+    images of one lesion. Only cross-lesion and cross-class matches indicate
+    potential labelling or leakage problems.
+    """
 
     images_in_exact_groups = sum(group["image_count"] for group in exact_groups)
 
     return {
         "exact_duplicate_groups": len(exact_groups),
-        "images_in_exact_duplicate_groups": (images_in_exact_groups),
+        "images_in_exact_duplicate_groups": images_in_exact_groups,
+        "exact_same_lesion_groups": sum(bool(group["same_lesion"]) for group in exact_groups),
         "exact_cross_lesion_groups": sum(bool(group["cross_lesion"]) for group in exact_groups),
         "exact_cross_class_groups": sum(bool(group["cross_class"]) for group in exact_groups),
         "exact_cross_source_groups": sum(bool(group["cross_source"]) for group in exact_groups),

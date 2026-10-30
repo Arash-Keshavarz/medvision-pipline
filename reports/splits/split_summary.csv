@@ -1,0 +1,4 @@
+split,image_count,image_percentage,lesion_count,lesion_percentage,class_count,source_count
+train,7013,70.02,5232,70.04,7,4
+validation,1501,14.99,1120,14.99,7,4
+test,1501,14.99,1118,14.97,7,4

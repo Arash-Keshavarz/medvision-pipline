@@ -1,6 +1,7 @@
 {
   "exact_duplicate_groups": 2,
   "images_in_exact_duplicate_groups": 4,
+  "exact_same_lesion_groups": 2,
   "exact_cross_lesion_groups": 0,
   "exact_cross_class_groups": 0,
   "exact_cross_source_groups": 0,
