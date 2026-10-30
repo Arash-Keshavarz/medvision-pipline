@@ -11,3 +11,19 @@ splits:
   number_of_folds: 20
   validation_folds: 3
   test_folds: 3
+
+preprocessing:
+  image_size: 224
+  # Evaluation resizes the shorter side to this, then centre-crops
+  # image_size. 224 keeps the full height of 600x450 images but removes about
+  # 25% of the original width in total (12.5% from each side).
+  resize_size: 224
+
+loader:
+  # Development defaults for a laptop with 8 GB RAM.
+  batch_size: 16
+  num_workers: 0
+  pin_memory: false
+  persistent_workers: false
+  # Controls training shuffle order and worker seeds.
+  seed: 42

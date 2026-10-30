@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from PIL import Image, UnidentifiedImageError
 
+from medvision.data.constants import EXPECTED_CLASSES
 
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 
@@ -24,16 +25,6 @@ REQUIRED_METADATA_COLUMNS = {
     "dataset",
 }
 
-EXPECTED_CLASSES = {
-    "akiec",
-    "bcc",
-    "bkl",
-    "df",
-    "mel",
-    "nv",
-    "vasc",
-}
-
 
 def load_metadata(dataset_root: Path) -> pd.DataFrame:
     """Load and validate the HAM10000 metadata file."""
@@ -41,18 +32,13 @@ def load_metadata(dataset_root: Path) -> pd.DataFrame:
     metadata_path = dataset_root / "HAM10000_metadata.csv"
 
     if not metadata_path.exists():
-        raise FileNotFoundError(
-            f"Metadata file not found: {metadata_path}"
-        )
+        raise FileNotFoundError(f"Metadata file not found: {metadata_path}")
 
     metadata = pd.read_csv(metadata_path)
 
     missing_columns = REQUIRED_METADATA_COLUMNS - set(metadata.columns)
     if missing_columns:
-        raise ValueError(
-            "Metadata is missing required columns: "
-            f"{sorted(missing_columns)}"
-        )
+        raise ValueError(f"Metadata is missing required columns: {sorted(missing_columns)}")
 
     return metadata
 
@@ -61,15 +47,12 @@ def discover_images(images_root: Path) -> list[Path]:
     """Discover supported image files recursively."""
 
     if not images_root.exists():
-        raise FileNotFoundError(
-            f"Image directory not found: {images_root}"
-        )
+        raise FileNotFoundError(f"Image directory not found: {images_root}")
 
     return sorted(
         path
         for path in images_root.rglob("*")
-        if path.is_file()
-        and path.suffix.lower() in SUPPORTED_EXTENSIONS
+        if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS
     )
 
 
@@ -151,17 +134,12 @@ def audit_dataset(dataset_root: Path) -> pd.DataFrame:
             "image_id",
         ].tolist()
 
-        raise ValueError(
-            "Duplicate image_id values found in metadata: "
-            f"{duplicate_ids[:10]}"
-        )
+        raise ValueError(f"Duplicate image_id values found in metadata: {duplicate_ids[:10]}")
 
     image_paths = discover_images(images_root)
 
     if not image_paths:
-        raise ValueError(
-            f"No supported image found under: {images_root}"
-        )
+        raise ValueError(f"No supported image found under: {images_root}")
 
     metadata_by_id = metadata.set_index("image_id")
     records: list[dict[str, Any]] = []
@@ -169,11 +147,7 @@ def audit_dataset(dataset_root: Path) -> pd.DataFrame:
     for image_path in image_paths:
         image_id = image_path.stem
 
-        metadata_row = (
-            metadata_by_id.loc[image_id]
-            if image_id in metadata_by_id.index
-            else None
-        )
+        metadata_row = metadata_by_id.loc[image_id] if image_id in metadata_by_id.index else None
 
         records.append(
             inspect_image(
@@ -190,12 +164,8 @@ def audit_dataset(dataset_root: Path) -> pd.DataFrame:
 
     inventory.attrs["metadata_rows"] = len(metadata)
     inventory.attrs["metadata_image_ids"] = len(metadata_ids)
-    inventory.attrs["missing_image_ids"] = sorted(
-        metadata_ids - discovered_ids
-    )
-    inventory.attrs["images_without_metadata"] = sorted(
-        discovered_ids - metadata_ids
-    )
+    inventory.attrs["missing_image_ids"] = sorted(metadata_ids - discovered_ids)
+    inventory.attrs["images_without_metadata"] = sorted(discovered_ids - metadata_ids)
 
     return inventory
 
@@ -205,101 +175,40 @@ def create_summary(inventory: pd.DataFrame) -> dict[str, Any]:
 
     readable = inventory[inventory["readable"]]
 
-    class_counts = (
-        inventory["class_name"]
-        .dropna()
-        .value_counts()
-        .sort_index()
-    )
+    class_counts = inventory["class_name"].dropna().value_counts().sort_index()
 
-    source_counts = (
-        inventory["source"]
-        .dropna()
-        .value_counts()
-        .sort_index()
-    )
+    source_counts = inventory["source"].dropna().value_counts().sort_index()
 
-    mode_counts = (
-        readable["mode"]
-        .dropna()
-        .value_counts()
-        .sort_index()
-    )
+    mode_counts = readable["mode"].dropna().value_counts().sort_index()
 
-    extension_counts = (
-        inventory["extension"]
-        .value_counts()
-        .sort_index()
-    )
+    extension_counts = inventory["extension"].value_counts().sort_index()
 
     return {
         "total_images": int(len(inventory)),
         "readable_images": int(inventory["readable"].sum()),
         "unreadable_images": int((~inventory["readable"]).sum()),
-        "images_with_metadata": int(
-            inventory["has_metadata"].sum()
-        ),
-        "images_without_metadata": int(
-            (~inventory["has_metadata"]).sum()
-        ),
-        "metadata_without_images": len(
-            inventory.attrs.get("missing_image_ids", [])
-        ),
+        "images_with_metadata": int(inventory["has_metadata"].sum()),
+        "images_without_metadata": int((~inventory["has_metadata"]).sum()),
+        "metadata_without_images": len(inventory.attrs.get("missing_image_ids", [])),
         "unique_image_ids": int(inventory["image_id"].nunique()),
-        "unique_lesions": int(
-            inventory["lesion_id"].dropna().nunique()
-        ),
-        "class_counts": {
-            str(key): int(value)
-            for key, value in class_counts.items()
-        },
-        "source_counts": {
-            str(key): int(value)
-            for key, value in source_counts.items()
-        },
-        "image_modes": {
-            str(key): int(value)
-            for key, value in mode_counts.items()
-        },
-        "extensions": {
-            str(key): int(value)
-            for key, value in extension_counts.items()
-        },
-        "minimum_width": (
-            int(readable["width"].min()) if not readable.empty else None
-        ),
-        "median_width": (
-            float(readable["width"].median())
-            if not readable.empty
-            else None
-        ),
-        "maximum_width": (
-            int(readable["width"].max()) if not readable.empty else None
-        ),
-        "minimum_height": (
-            int(readable["height"].min())
-            if not readable.empty
-            else None
-        ),
-        "median_height": (
-            float(readable["height"].median())
-            if not readable.empty
-            else None
-        ),
-        "maximum_height": (
-            int(readable["height"].max())
-            if not readable.empty
-            else None
-        ),
+        "unique_lesions": int(inventory["lesion_id"].dropna().nunique()),
+        "class_counts": {str(key): int(value) for key, value in class_counts.items()},
+        "source_counts": {str(key): int(value) for key, value in source_counts.items()},
+        "image_modes": {str(key): int(value) for key, value in mode_counts.items()},
+        "extensions": {str(key): int(value) for key, value in extension_counts.items()},
+        "minimum_width": (int(readable["width"].min()) if not readable.empty else None),
+        "median_width": (float(readable["width"].median()) if not readable.empty else None),
+        "maximum_width": (int(readable["width"].max()) if not readable.empty else None),
+        "minimum_height": (int(readable["height"].min()) if not readable.empty else None),
+        "median_height": (float(readable["height"].median()) if not readable.empty else None),
+        "maximum_height": (int(readable["height"].max()) if not readable.empty else None),
     }
 
 
 def validate_structure(inventory: pd.DataFrame) -> dict[str, Any]:
     """Validate HAM10000 classes, metadata, and image mappings."""
 
-    discovered_classes = set(
-        inventory["class_name"].dropna().unique()
-    )
+    discovered_classes = set(inventory["class_name"].dropna().unique())
 
     missing_values = {
         column: int(inventory[column].isna().sum())
@@ -317,12 +226,8 @@ def validate_structure(inventory: pd.DataFrame) -> dict[str, Any]:
     return {
         "expected_classes": sorted(EXPECTED_CLASSES),
         "discovered_classes": sorted(discovered_classes),
-        "missing_classes": sorted(
-            EXPECTED_CLASSES - discovered_classes
-        ),
-        "unexpected_classes": sorted(
-            discovered_classes - EXPECTED_CLASSES
-        ),
+        "missing_classes": sorted(EXPECTED_CLASSES - discovered_classes),
+        "unexpected_classes": sorted(discovered_classes - EXPECTED_CLASSES),
         "missing_image_ids": inventory.attrs.get(
             "missing_image_ids",
             [],
@@ -331,9 +236,7 @@ def validate_structure(inventory: pd.DataFrame) -> dict[str, Any]:
             "images_without_metadata",
             [],
         ),
-        "duplicate_image_ids": int(
-            inventory["image_id"].duplicated().sum()
-        ),
+        "duplicate_image_ids": int(inventory["image_id"].duplicated().sum()),
         "missing_metadata_values": missing_values,
     }
 
@@ -396,12 +299,7 @@ def plot_class_distribution(
 ) -> None:
     """Save the diagnosis-class distribution plot."""
 
-    counts = (
-        inventory["class_name"]
-        .dropna()
-        .value_counts()
-        .sort_values(ascending=False)
-    )
+    counts = inventory["class_name"].dropna().value_counts().sort_values(ascending=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -422,12 +320,7 @@ def plot_source_distribution(
 ) -> None:
     """Save the source distribution plot."""
 
-    counts = (
-        inventory["source"]
-        .dropna()
-        .value_counts()
-        .sort_values(ascending=False)
-    )
+    counts = inventory["source"].dropna().value_counts().sort_values(ascending=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 

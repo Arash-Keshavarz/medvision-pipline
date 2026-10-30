@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from medvision.data.audit import EXPECTED_CLASSES
+from medvision.data.constants import EXPECTED_CLASSES
 from medvision.data.splits import (
     SPLIT_COLUMNS,
     SPLIT_NAMES,

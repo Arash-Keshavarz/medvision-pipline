@@ -11,9 +11,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedGroupKFold
 
-from medvision.data.audit import EXPECTED_CLASSES
-
-SPLIT_NAMES = ("train", "validation", "test")
+from medvision.data.constants import EXPECTED_CLASSES, SPLIT_NAMES
 
 SPLIT_COLUMNS = [
     "image_id",

@@ -76,3 +76,6 @@ reports/duplicate_detection/hash_inventory.csv
 reports/duplicate_detection/near_duplicate_pairs.csv
 reports/ham10000_duplicates/hash_inventory.csv
 reports/ham10000_duplicates/near_duplicate_pairs.csv
+
+# Generated preprocessing previews
+reports/preprocessing/

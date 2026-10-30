@@ -16,9 +16,7 @@ from medvision.data.audit import (
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
 
-    parser = argparse.ArgumentParser(
-        description="Audit the HAM10000 dataset."
-    )
+    parser = argparse.ArgumentParser(description="Audit the HAM10000 dataset.")
 
     parser.add_argument(
         "--dataset-root",
@@ -55,26 +53,11 @@ def main() -> None:
     print(f"Readable images: {summary['readable_images']}")
     print(f"Unreadable images: {summary['unreadable_images']}")
     print(f"Unique lesions: {summary['unique_lesions']}")
-    print(
-        "Images without metadata: "
-        f"{summary['images_without_metadata']}"
-    )
-    print(
-        "Metadata rows without images: "
-        f"{summary['metadata_without_images']}"
-    )
-    print(
-        "Discovered classes: "
-        f"{validation['discovered_classes']}"
-    )
-    print(
-        "Missing classes: "
-        f"{validation['missing_classes']}"
-    )
-    print(
-        "Unexpected classes: "
-        f"{validation['unexpected_classes']}"
-    )
+    print(f"Images without metadata: {summary['images_without_metadata']}")
+    print(f"Metadata rows without images: {summary['metadata_without_images']}")
+    print(f"Discovered classes: {validation['discovered_classes']}")
+    print(f"Missing classes: {validation['missing_classes']}")
+    print(f"Unexpected classes: {validation['unexpected_classes']}")
     print(f"Results saved to: {arguments.output_dir}")
 
 

@@ -82,9 +82,7 @@ def create_test_dataset(dataset_root: Path) -> None:
         sample_metadata_rows(),
     )
 
-    create_test_image(
-        dataset_root / "images" / "ISIC_0000001.jpg"
-    )
+    create_test_image(dataset_root / "images" / "ISIC_0000001.jpg")
     create_test_image(
         dataset_root / "images" / "ISIC_0000002.jpg",
         size=(300, 200),
@@ -121,10 +119,7 @@ def test_audit_dataset_records_image_dimensions(
 
     inventory = audit_dataset(tmp_path)
 
-    dimensions = {
-        row.image_id: (row.width, row.height)
-        for row in inventory.itertuples()
-    }
+    dimensions = {row.image_id: (row.width, row.height) for row in inventory.itertuples()}
 
     assert dimensions["ISIC_0000001"] == (600, 450)
     assert dimensions["ISIC_0000002"] == (300, 200)
@@ -155,12 +150,8 @@ def test_audit_dataset_detects_image_without_metadata(
         sample_metadata_rows()[:1],
     )
 
-    create_test_image(
-        tmp_path / "images" / "ISIC_0000001.jpg"
-    )
-    create_test_image(
-        tmp_path / "images" / "ISIC_9999999.jpg"
-    )
+    create_test_image(tmp_path / "images" / "ISIC_0000001.jpg")
+    create_test_image(tmp_path / "images" / "ISIC_9999999.jpg")
 
     inventory = audit_dataset(tmp_path)
     summary = create_summary(inventory)
@@ -177,9 +168,7 @@ def test_audit_dataset_detects_metadata_without_image(
         sample_metadata_rows(),
     )
 
-    create_test_image(
-        tmp_path / "images" / "ISIC_0000001.jpg"
-    )
+    create_test_image(tmp_path / "images" / "ISIC_0000001.jpg")
 
     inventory = audit_dataset(tmp_path)
     summary = create_summary(inventory)
@@ -225,9 +214,7 @@ def test_create_class_summary(
         "ISIC_0000002",
         "ISIC_0000003",
     ):
-        create_test_image(
-            tmp_path / "images" / f"{image_id}.jpg"
-        )
+        create_test_image(tmp_path / "images" / f"{image_id}.jpg")
 
     inventory = audit_dataset(tmp_path)
     class_summary = create_class_summary(inventory)
@@ -279,16 +266,12 @@ def test_create_lesion_summary_groups_related_images(
         "ISIC_0000002",
         "ISIC_0000003",
     ):
-        create_test_image(
-            tmp_path / "images" / f"{image_id}.jpg"
-        )
+        create_test_image(tmp_path / "images" / f"{image_id}.jpg")
 
     inventory = audit_dataset(tmp_path)
     lesion_summary = create_lesion_summary(inventory)
 
-    lesion = lesion_summary.loc[
-        lesion_summary["lesion_id"] == "HAM_0000001"
-    ].iloc[0]
+    lesion = lesion_summary.loc[lesion_summary["lesion_id"] == "HAM_0000001"].iloc[0]
 
     assert lesion["image_count"] == 2
     assert lesion["class_count"] == 1
@@ -301,9 +284,7 @@ def test_validate_structure_detects_unexpected_class(
     rows[0]["dx"] = "unknown_class"
 
     create_test_metadata(tmp_path, rows)
-    create_test_image(
-        tmp_path / "images" / "ISIC_0000001.jpg"
-    )
+    create_test_image(tmp_path / "images" / "ISIC_0000001.jpg")
 
     inventory = audit_dataset(tmp_path)
     validation = validate_structure(inventory)
@@ -337,10 +318,6 @@ def test_save_audit_results(
         "image_dimensions.png",
     }
 
-    discovered_files = {
-        path.name
-        for path in output_directory.iterdir()
-        if path.is_file()
-    }
+    discovered_files = {path.name for path in output_directory.iterdir() if path.is_file()}
 
     assert expected_files <= discovered_files
