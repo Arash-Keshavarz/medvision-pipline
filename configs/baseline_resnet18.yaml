@@ -1,0 +1,35 @@
+# ResNet18 baseline training settings.
+#
+# This file holds model, optimisation, and run settings only. Dataset paths,
+# split manifests, preprocessing (image/resize size), and DataLoader settings
+# (batch size, workers, shuffle seed) are read from `data_config`, so they are
+# never duplicated here.
+
+data_config: configs/data.yaml
+
+run:
+  # Each run gets a new, never-overwritten subdirectory of output_root.
+  output_root: runs/baseline_resnet18
+  # Seeds Python, NumPy, and PyTorch before loaders and the model are built.
+  seed: 42
+  # auto = CUDA, then MPS, then CPU. Or one of: cpu, cuda, mps.
+  device: auto
+
+model:
+  architecture: resnet18
+  # imagenet = torchvision ResNet18_Weights.IMAGENET1K_V1; none = random init.
+  # All layers are fine-tuned; the final layer is replaced with 7 outputs.
+  weights: imagenet
+
+optimizer:
+  name: adamw
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+
+training:
+  # Ordinary (unweighted) cross-entropy; no weighted sampling.
+  loss: cross_entropy
+  max_epochs: 20
+  # Stop after this many consecutive epochs without a strictly better score.
+  early_stopping_patience: 5
+  selection_metric: macro_f1

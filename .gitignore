@@ -34,14 +34,17 @@ data/*
 kaggle.json
 .kaggle/
 
-# Models and checkpoints
-models/
+# Models and checkpoints (root only; src/medvision/models/ is source code)
+/models/
 checkpoints/
 artifacts/
 *.pt
 *.pth
 *.ckpt
 *.onnx
+
+# Training run artifacts (checkpoints, histories, metrics)
+/runs/
 
 # Experiment tracking
 mlruns/

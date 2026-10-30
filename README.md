@@ -105,3 +105,26 @@ images). The project therefore:
 - uses balanced accuracy and macro F1 as primary metrics;
 - reports per-class precision, recall, F1, and support;
 - reports class and source distributions for every split.
+
+### Baseline training
+
+The ResNet18 baseline fine-tunes all layers from ImageNet weights with
+ordinary cross-entropy (no class weights or weighted sampling) and AdamW.
+The checkpoint with the highest validation macro F1 is kept, and training
+stops after five epochs without improvement. Only the train and validation
+splits are used; the test split is not loaded during training.
+
+Settings come from two files: `configs/baseline_resnet18.yaml` (model,
+optimiser, run) and `configs/data.yaml` (paths, preprocessing, loaders).
+
+```bash
+# Offline engineering check: random weights, one epoch, small subsets.
+python scripts/train_baseline.py --smoke
+
+# Full baseline training.
+python scripts/train_baseline.py --config configs/baseline_resnet18.yaml
+```
+
+Each run writes to a new directory under `runs/baseline_resnet18/`
+(ignored by Git). A fixed seed makes runs repeatable on the same device and
+library versions, but not bitwise identical across devices.
