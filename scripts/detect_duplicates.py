@@ -13,21 +13,15 @@ from medvision.data.duplicates import (
     save_duplicate_results,
 )
 
-
 DEFAULT_DATASET_ROOT = Path("data/raw/ham10000")
-DEFAULT_OUTPUT_DIRECTORY = Path(
-    "reports/ham10000_duplicates"
-)
+DEFAULT_OUTPUT_DIRECTORY = Path("reports/ham10000_duplicates")
 
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
 
     parser = argparse.ArgumentParser(
-        description=(
-            "Detect exact and perceptually similar "
-            "HAM10000 images."
-        )
+        description=("Detect exact and perceptually similar HAM10000 images.")
     )
 
     parser.add_argument(
@@ -60,9 +54,7 @@ def main() -> None:
     print(f"Dataset root: {arguments.dataset_root}")
     print("Building image hash inventory...")
 
-    inventory = build_hash_inventory(
-        arguments.dataset_root
-    )
+    inventory = build_hash_inventory(arguments.dataset_root)
 
     print("Finding exact duplicate groups...")
 

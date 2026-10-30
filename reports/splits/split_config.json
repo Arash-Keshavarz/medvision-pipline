@@ -1,0 +1,54 @@
+{
+  "strategy": "StratifiedGroupKFold",
+  "group_column": "lesion_id",
+  "stratification_column": "class_name",
+  "random_seed": 42,
+  "number_of_folds": 20,
+  "validation_folds": 3,
+  "test_folds": 3,
+  "train_folds": 14,
+  "fold_assignment": {
+    "train": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "validation": [
+      14,
+      15,
+      16
+    ],
+    "test": [
+      17,
+      18,
+      19
+    ]
+  },
+  "target_ratios": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "actual_image_ratios": {
+    "train": 0.7002,
+    "validation": 0.1499,
+    "test": 0.1499
+  },
+  "actual_lesion_ratios": {
+    "train": 0.7004,
+    "validation": 0.1499,
+    "test": 0.1497
+  },
+  "note": "Ratios are approximate because whole lesions are assigned to one split."
+}
