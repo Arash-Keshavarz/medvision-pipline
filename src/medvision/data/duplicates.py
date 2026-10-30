@@ -53,13 +53,13 @@ def calculate_perceptual_hash(image_path: Path) -> str:
         return str(imagehash.phash(image))
 
 
-def hamming_distance(left_hash: str, right_hash: str) -> int:
+def hamming_distance(first_hash: str, second_hash: str) -> int:
     """Calculate the Hamming distance between hexadecimal hashes."""
 
-    if len(left_hash) != len(right_hash):
+    if len(first_hash) != len(second_hash):
         raise ValueError("Hashes must have the same length.")
 
-    return (int(left_hash, 16) ^ int(right_hash, 16)).bit_count()
+    return (int(first_hash, 16) ^ int(second_hash, 16)).bit_count()
 
 
 def build_hash_inventory(dataset_root: Path) -> pd.DataFrame:
