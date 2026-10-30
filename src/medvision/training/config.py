@@ -23,7 +23,7 @@ from medvision.data.loaders import LoaderConfig
 SUPPORTED_ARCHITECTURES = ("resnet18",)
 SUPPORTED_WEIGHTS = ("imagenet", "none")
 SUPPORTED_OPTIMIZERS = ("adamw",)
-SUPPORTED_LOSSES = ("cross_entropy",)
+SUPPORTED_LOSSES = ("cross_entropy", "weighted_cross_entropy")
 SUPPORTED_SELECTION_METRICS = ("macro_f1",)
 SUPPORTED_DEVICES = ("auto", "cpu", "cuda", "mps")
 

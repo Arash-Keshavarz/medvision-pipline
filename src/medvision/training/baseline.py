@@ -19,13 +19,13 @@ from typing import Any
 
 import torch
 import torchvision
-from torch import nn
 from torch.utils.data import DataLoader, Subset
 
 from medvision.data.constants import CLASS_TO_INDEX
 from medvision.data.loaders import create_dataloader, create_dataloaders
 from medvision.models.resnet import build_resnet18
 from medvision.training.config import DataSettings, TrainingConfig
+from medvision.training.losses import build_criterion, class_weights_from_manifest
 from medvision.training.reproducibility import seed_everything, select_device
 from medvision.training.trainer import fit
 
@@ -159,7 +159,19 @@ def run_baseline(
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=config.learning_rate, weight_decay=config.weight_decay
     )
-    criterion = nn.CrossEntropyLoss()
+
+    # Class weights come from the full training manifest only, also in smoke
+    # runs, so they never depend on validation or test labels.
+    train_manifest = data_settings.manifest_directory / "train.csv"
+    class_weights = (
+        {
+            **class_weights_from_manifest(train_manifest),
+            "source_manifest_sha256": sha256_file(train_manifest),
+        }
+        if config.loss == "weighted_cross_entropy"
+        else None
+    )
+    criterion = build_criterion(config.loss, class_weights).to(device)
 
     run_type = "smoke" if smoke is not None else "baseline"
     run_name = run_name or f"{run_type}-{started_at:%Y%m%d-%H%M%S}"
@@ -170,6 +182,7 @@ def run_baseline(
         "training": config.to_dict(),
         "data": data_settings.to_dict(),
         "smoke": None if smoke is None else vars(smoke),
+        "class_weights": class_weights,
     }
     metadata = {
         "run_type": run_type,
@@ -178,7 +191,10 @@ def run_baseline(
             "Metrics are not baseline performance."
             if smoke is not None
             else "Baseline training run."
+            if config.loss == "cross_entropy"
+            else "Training run with class-weighted cross-entropy (see class_weights.json)."
         ),
+        "loss": config.loss,
         "status": "running",
         "started_at": started_at.isoformat(timespec="seconds"),
         "seed": config.seed,
@@ -199,8 +215,18 @@ def run_baseline(
     _write_json(run_directory / "class_mapping.json", dict(CLASS_TO_INDEX))
     _write_json(run_directory / "run_metadata.json", metadata)
 
+    if class_weights is not None:
+        _write_json(run_directory / "class_weights.json", class_weights)
+
     print(f"Run directory: {run_directory}")
     print(f"Device: {device} | seed: {config.seed} | weights: {config.weights}")
+    print(f"Loss: {config.loss}")
+
+    if class_weights is not None:
+        print(
+            "Class weights: "
+            + ", ".join(f"{name} {weight:.4f}" for name, weight in class_weights["weights"].items())
+        )
     print(
         f"Train images: {len(loaders['train'].dataset):,} | "
         f"validation images: {len(loaders['validation'].dataset):,}"
@@ -217,6 +243,7 @@ def run_baseline(
         patience=config.early_stopping_patience,
         run_directory=run_directory,
         config=resolved_config,
+        loss_name=config.loss,
     )
 
     metadata.update(

@@ -24,11 +24,13 @@ from medvision.training.config import (
     load_data_settings,
     load_training_config,
 )
+from medvision.training.losses import CLASS_WEIGHT_FORMULA
 from medvision.training.reproducibility import seed_everything, select_device
 from medvision.training.trainer import (
     BestScoreTracker,
     fit,
     load_checkpoint,
+    loss_normaliser,
     run_epoch,
     save_checkpoint,
 )
@@ -125,6 +127,65 @@ def test_epoch_loss_is_weighted_by_samples() -> None:
     # The final batch of one sample must not get the same weight as three samples.
     assert result.loss != pytest.approx(torch.stack(batch_means).mean().item())
     assert result.metrics["sample_count"] == 4
+    # Plain cross-entropy: the objective is the unweighted cross-entropy.
+    assert result.unweighted_cross_entropy == pytest.approx(result.loss)
+
+
+CLASS_WEIGHTS = torch.tensor([3.0, 0.5, 1.0, 7.0, 2.0, 0.25, 5.0])
+
+
+def test_weighted_epoch_loss_matches_one_concatenated_calculation() -> None:
+    torch.manual_seed(0)
+    model = TinyModel()
+    # Uneven batches with different class mixes, so batch weight sums differ.
+    batches = make_batches([5, 3, 1], seed=4)
+    criterion = nn.CrossEntropyLoss(weight=CLASS_WEIGHTS)
+
+    result = run_epoch(model, batches, criterion, CPU)
+
+    with torch.no_grad():
+        logits = [model(batch["image"]) for batch in batches]
+        targets = [batch["target"] for batch in batches]
+        all_logits, all_targets = torch.cat(logits), torch.cat(targets)
+        concatenated = nn.functional.cross_entropy(all_logits, all_targets, weight=CLASS_WEIGHTS)
+        unweighted = nn.functional.cross_entropy(all_logits, all_targets)
+        per_sample = nn.functional.cross_entropy(
+            all_logits, all_targets, weight=CLASS_WEIGHTS, reduction="none"
+        )
+        batch_means = [
+            nn.functional.cross_entropy(logit, target, weight=CLASS_WEIGHTS)
+            for logit, target in zip(logits, targets, strict=True)
+        ]
+        sample_weighted = sum(
+            mean * len(target) for mean, target in zip(batch_means, targets, strict=True)
+        ) / len(all_targets)
+
+    assert result.loss == pytest.approx(concatenated.item())
+    # PyTorch normalises by the summed target weights, not the sample count.
+    assert concatenated.item() == pytest.approx(
+        (per_sample.sum() / CLASS_WEIGHTS[all_targets].sum()).item()
+    )
+    # Neither batch-size weighting nor a plain mean of batch means is correct.
+    assert result.loss != pytest.approx(sample_weighted.item())
+    assert result.loss != pytest.approx(torch.stack(batch_means).mean().item())
+    # The unweighted column stays comparable with a plain cross-entropy run.
+    assert result.unweighted_cross_entropy == pytest.approx(unweighted.item())
+    assert result.loss != pytest.approx(result.unweighted_cross_entropy)
+
+
+def test_loss_normaliser() -> None:
+    targets = torch.tensor([0, 3, 3, 5])
+
+    assert loss_normaliser(nn.CrossEntropyLoss(), targets) == 4
+    assert loss_normaliser(nn.CrossEntropyLoss(weight=CLASS_WEIGHTS), targets) == pytest.approx(
+        3.0 + 7.0 + 7.0 + 0.25
+    )
+
+    with pytest.raises(ValueError, match="mean-reduced"):
+        loss_normaliser(nn.CrossEntropyLoss(reduction="sum"), targets)
+
+    with pytest.raises(ValueError, match="label smoothing"):
+        loss_normaliser(nn.CrossEntropyLoss(weight=CLASS_WEIGHTS, label_smoothing=0.1), targets)
 
 
 def test_metrics_use_all_predictions_of_the_epoch() -> None:
@@ -320,6 +381,17 @@ def test_repository_training_config_loads_with_expected_defaults() -> None:
     )
 
 
+def test_weighted_config_differs_from_baseline_only_in_loss_and_output() -> None:
+    baseline = load_training_config(REPOSITORY_ROOT / "configs" / "baseline_resnet18.yaml")
+    weighted = load_training_config(REPOSITORY_ROOT / "configs" / "resnet18_weighted_ce.yaml")
+
+    assert weighted.loss == "weighted_cross_entropy"
+    assert weighted == replace(
+        baseline, loss="weighted_cross_entropy", output_root=weighted.output_root
+    )
+    assert weighted.output_root != baseline.output_root
+
+
 def test_repository_data_config_provides_training_data_settings() -> None:
     settings = load_data_settings(REPOSITORY_ROOT / "configs" / "data.yaml")
 
@@ -475,6 +547,64 @@ def test_smoke_run_writes_marked_artifacts(
     assert {"commit", "dirty"} <= set(metadata["git"])
     assert resolved["training"]["weights"] == "none"
     assert json.loads((run_directory / "class_mapping.json").read_text()) == dict(CLASS_TO_INDEX)
+
+
+def test_plain_run_writes_no_class_weights(
+    synthetic_dataset: SyntheticDataset,
+    tmp_path: Path,
+) -> None:
+    run_directory = run_baseline(
+        synthetic_config(tmp_path), synthetic_settings(synthetic_dataset), run_name="plain"
+    )
+
+    history = pd.read_csv(run_directory / "history.csv")
+    resolved = json.loads((run_directory / "resolved_config.json").read_text())
+    metadata = json.loads((run_directory / "run_metadata.json").read_text())
+
+    assert not (run_directory / "class_weights.json").exists()
+    assert resolved["class_weights"] is None
+    assert metadata["loss"] == "cross_entropy"
+    assert metadata["note"] == "Baseline training run."
+    assert (history["loss_function"] == "cross_entropy").all()
+    pd.testing.assert_series_equal(
+        history["validation_loss"],
+        history["validation_unweighted_cross_entropy"],
+        check_names=False,
+    )
+
+
+def test_weighted_run_saves_weight_provenance(
+    synthetic_dataset: SyntheticDataset,
+    tmp_path: Path,
+) -> None:
+    config = replace(synthetic_config(tmp_path), loss="weighted_cross_entropy")
+    train_path = synthetic_dataset.manifest_path("train")
+    train_classes = pd.read_csv(train_path)["class_name"]
+    expected_counts = {name: int((train_classes == name).sum()) for name in CLASS_TO_INDEX}
+
+    run_directory = run_baseline(config, synthetic_settings(synthetic_dataset), run_name="weighted")
+
+    saved = json.loads((run_directory / "class_weights.json").read_text())
+    resolved = json.loads((run_directory / "resolved_config.json").read_text())
+    metadata = json.loads((run_directory / "run_metadata.json").read_text())
+    checkpoint = torch.load(run_directory / "best.pt", weights_only=True)
+    history = pd.read_csv(run_directory / "history.csv")
+
+    assert saved["formula"] == CLASS_WEIGHT_FORMULA
+    assert saved["class_order"] == list(CLASS_TO_INDEX)
+    assert saved["counts"] == expected_counts
+    assert saved["n_train"] == len(train_classes)
+    assert saved["source_manifest"] == str(train_path)
+    assert saved["source_manifest_sha256"] == metadata["manifests"]["train"]["sha256"]
+    for name, count in expected_counts.items():
+        assert saved["weights"][name] == pytest.approx(len(train_classes) / (7 * count))
+
+    assert resolved["class_weights"] == saved
+    assert checkpoint["config"]["class_weights"] == saved
+    assert metadata["loss"] == "weighted_cross_entropy"
+    assert "class_weights.json" in metadata["note"]
+    assert (history["loss_function"] == "weighted_cross_entropy").all()
+    assert history["validation_unweighted_cross_entropy"].notna().all()
 
 
 def test_cpu_runs_with_same_seed_are_identical(

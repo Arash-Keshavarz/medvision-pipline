@@ -128,3 +128,29 @@ python scripts/train_baseline.py --config configs/baseline_resnet18.yaml
 Each run writes to a new directory under `runs/baseline_resnet18/`
 (ignored by Git). A fixed seed makes runs repeatable on the same device and
 library versions, but not bitwise identical across devices.
+
+The accepted baseline (experiment A) is summarised in
+`reports/experiments/experiment_a_baseline_resnet18.md`.
+
+### Class-weighted cross-entropy (experiment B)
+
+`configs/resnet18_weighted_ce.yaml` is identical to the baseline config
+except for `training.loss: weighted_cross_entropy` and its output directory.
+Weights come from the training manifest only, in canonical class order:
+
+    weight[c] = N_train / (number_of_classes * count[c])
+
+A class with no training images is rejected. Counts, formula, and weights
+are saved to `class_weights.json` in the run directory (and in
+`resolved_config.json` and the checkpoints).
+
+With weighted cross-entropy, PyTorch's mean reduction divides by the sum of
+the targets' weights, so epoch losses are aggregated the same way and equal
+the loss over the whole epoch in one batch. These weighted losses are not
+comparable with the baseline's; `history.csv` also records
+`*_unweighted_cross_entropy` columns for that. Model selection still uses
+validation macro F1.
+
+```bash
+python scripts/train_baseline.py --config configs/resnet18_weighted_ce.yaml
+```

@@ -1,0 +1,41 @@
+# Experiment B: ResNet18 with class-weighted cross-entropy.
+#
+# Identical to configs/baseline_resnet18.yaml (experiment A) except for
+# training.loss and run.output_root.
+#
+# This file holds model, optimisation, and run settings only. Dataset paths,
+# split manifests, preprocessing (image/resize size), and DataLoader settings
+# (batch size, workers, shuffle seed) are read from `data_config`, so they are
+# never duplicated here.
+
+data_config: configs/data.yaml
+
+run:
+  # Each run gets a new, never-overwritten subdirectory of output_root.
+  output_root: runs/resnet18_weighted_ce
+  # Seeds Python, NumPy, and PyTorch before loaders and the model are built.
+  seed: 42
+  # auto = CUDA, then MPS, then CPU. Or one of: cpu, cuda, mps.
+  device: auto
+
+model:
+  architecture: resnet18
+  # imagenet = torchvision ResNet18_Weights.IMAGENET1K_V1; none = random init.
+  # All layers are fine-tuned; the final layer is replaced with 7 outputs.
+  weights: imagenet
+
+optimizer:
+  name: adamw
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+
+training:
+  # Cross-entropy weighted by weight[c] = N_train / (7 * count[c]), counts from
+  # the training manifest only (saved to class_weights.json). No weighted
+  # sampling. Logged losses are weighted; history.csv also records unweighted
+  # cross-entropy for comparison with experiment A.
+  loss: weighted_cross_entropy
+  max_epochs: 20
+  # Stop after this many consecutive epochs without a strictly better score.
+  early_stopping_patience: 5
+  selection_metric: macro_f1

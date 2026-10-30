@@ -21,10 +21,36 @@ from medvision.evaluation.metrics import compute_classification_metrics, confusi
 
 @dataclass(frozen=True)
 class EpochResult:
-    """Sample-weighted mean loss and metrics over one pass of a loader."""
+    """Epoch loss and metrics over one pass of a loader.
+
+    ``loss`` is the criterion's loss over the whole epoch, as if every sample
+    had been in one batch (for weighted cross-entropy, the target-weighted
+    mean). ``unweighted_cross_entropy`` is the plain per-sample mean
+    cross-entropy, comparable across runs with different criteria.
+    """
 
     loss: float
+    unweighted_cross_entropy: float
     metrics: dict[str, Any]
+
+
+def loss_normaliser(criterion: nn.Module, targets: torch.Tensor) -> float:
+    """Return the denominator ``criterion`` uses for a mean-reduced batch loss.
+
+    ``nn.CrossEntropyLoss(weight=w)`` with mean reduction divides the summed
+    weighted losses by ``w[targets].sum()``, not by the batch size. Other
+    mean-reduced criteria divide by the number of samples.
+    """
+
+    if getattr(criterion, "reduction", "mean") != "mean":
+        raise ValueError("Epoch loss aggregation requires a mean-reduced criterion.")
+
+    if isinstance(criterion, nn.CrossEntropyLoss) and criterion.weight is not None:
+        if criterion.label_smoothing != 0:
+            raise ValueError("Weighted cross-entropy with label smoothing is not supported.")
+        return criterion.weight[targets].sum().item()
+
+    return float(targets.shape[0])
 
 
 def run_epoch(
@@ -36,8 +62,11 @@ def run_epoch(
 ) -> EpochResult:
     """Run one training epoch (with ``optimizer``) or one evaluation pass.
 
-    The returned loss is the sum of per-sample losses divided by the number of
-    samples, so a smaller final batch is weighted correctly. Metrics are
+    Each batch's mean loss is multiplied back by the criterion's denominator
+    (see ``loss_normaliser``) and the epoch loss divides the total by the sum
+    of denominators. This equals the criterion applied once to the
+    concatenated epoch, so a smaller final batch, or a batch with a different
+    class mix under weighted cross-entropy, is weighted correctly. Metrics are
     computed once from all predictions of the epoch.
     """
 
@@ -46,6 +75,8 @@ def run_epoch(
     context = nullcontext() if training else torch.inference_mode()
 
     total_loss = 0.0
+    total_normaliser = 0.0
+    total_unweighted = 0.0
     sample_count = 0
     all_targets: list[torch.Tensor] = []
     all_predictions: list[torch.Tensor] = []
@@ -76,9 +107,13 @@ def run_epoch(
                 loss.backward()
                 optimizer.step()
 
-            batch_size = targets.shape[0]
-            total_loss += loss_value * batch_size
-            sample_count += batch_size
+            normaliser = loss_normaliser(criterion, targets)
+            total_loss += loss_value * normaliser
+            total_normaliser += normaliser
+            total_unweighted += nn.functional.cross_entropy(
+                logits.detach(), targets, reduction="sum"
+            ).item()
+            sample_count += targets.shape[0]
             all_targets.append(targets.detach().cpu())
             all_predictions.append(logits.detach().argmax(dim=1).cpu())
 
@@ -90,7 +125,11 @@ def run_epoch(
         torch.cat(all_predictions).tolist(),
     )
 
-    return EpochResult(loss=total_loss / sample_count, metrics=metrics)
+    return EpochResult(
+        loss=total_loss / total_normaliser,
+        unweighted_cross_entropy=total_unweighted / sample_count,
+        metrics=metrics,
+    )
 
 
 @dataclass
@@ -178,8 +217,15 @@ def fit(
     patience: int,
     run_directory: Path,
     config: dict[str, Any],
+    loss_name: str = "cross_entropy",
 ) -> tuple[list[dict[str, Any]], BestScoreTracker]:
     """Train with validation macro-F1 model selection and early stopping.
+
+    ``train_loss`` and ``validation_loss`` in ``history.csv`` are the
+    criterion's loss (named in the ``loss_function`` column). With weighted
+    cross-entropy they are not comparable to a plain cross-entropy run; the
+    ``*_unweighted_cross_entropy`` columns are. Model selection always uses
+    validation macro F1, never a loss.
 
     Writes ``history.csv`` and ``last.pt`` after every epoch, and ``best.pt``,
     ``best_validation_metrics.json``, and ``best_validation_confusion_matrix.csv``
@@ -200,10 +246,13 @@ def fit(
         history.append(
             {
                 "epoch": epoch,
+                "loss_function": loss_name,
                 "train_loss": train_result.loss,
+                "train_unweighted_cross_entropy": train_result.unweighted_cross_entropy,
                 "train_accuracy": train_result.metrics["accuracy"],
                 "train_macro_f1": train_result.metrics["macro_f1"],
                 "validation_loss": validation_result.loss,
+                "validation_unweighted_cross_entropy": validation_result.unweighted_cross_entropy,
                 "validation_accuracy": validation_result.metrics["accuracy"],
                 "validation_balanced_accuracy": validation_result.metrics["balanced_accuracy"],
                 "validation_macro_f1": score,
@@ -230,10 +279,15 @@ def fit(
             run_directory / "last.pt", model, optimizer, epoch, tracker.best_score, config
         )
 
+        unweighted_note = (
+            ""
+            if loss_name == "cross_entropy"
+            else f" (unweighted CE {validation_result.unweighted_cross_entropy:.4f})"
+        )
         print(
             f"Epoch {epoch}/{max_epochs}: "
-            f"train loss {train_result.loss:.4f}, "
-            f"val loss {validation_result.loss:.4f}, "
+            f"train {loss_name} {train_result.loss:.4f}, "
+            f"val {loss_name} {validation_result.loss:.4f}{unweighted_note}, "
             f"val macro F1 {score:.4f}, "
             f"val balanced acc {validation_result.metrics['balanced_accuracy']:.4f}"
             f"{' (best)' if improved else ''} "
