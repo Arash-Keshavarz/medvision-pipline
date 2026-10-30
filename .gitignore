@@ -30,6 +30,10 @@ data/*
 !data/.gitkeep
 !data/README.md
 
+# Kaggle credentials
+kaggle.json
+.kaggle/
+
 # Models and checkpoints
 models/
 checkpoints/
@@ -45,9 +49,9 @@ wandb/
 lightning_logs/
 
 # Reports generated during experiments
-reports/figures/
 reports/metrics/
 reports/predictions/
+reports/dataset_audit/dataset_inventory.csv
 
 # Testing and code quality
 .pytest_cache/
@@ -65,3 +69,10 @@ dist/
 *.log
 tmp/
 temp/
+
+
+# Regeneratable duplicate-detection inventories
+reports/duplicate_detection/hash_inventory.csv
+reports/duplicate_detection/near_duplicate_pairs.csv
+reports/ham10000_duplicates/hash_inventory.csv
+reports/ham10000_duplicates/near_duplicate_pairs.csv

@@ -1,0 +1,76 @@
+{
+  "summary": {
+    "total_images": 2357,
+    "readable_images": 2357,
+    "unreadable_images": 0,
+    "class_counts": {
+      "Test/actinic keratosis": 16,
+      "Test/basal cell carcinoma": 16,
+      "Test/dermatofibroma": 16,
+      "Test/melanoma": 16,
+      "Test/nevus": 16,
+      "Test/pigmented benign keratosis": 16,
+      "Test/seborrheic keratosis": 3,
+      "Test/squamous cell carcinoma": 16,
+      "Test/vascular lesion": 3,
+      "Train/actinic keratosis": 114,
+      "Train/basal cell carcinoma": 376,
+      "Train/dermatofibroma": 95,
+      "Train/melanoma": 438,
+      "Train/nevus": 357,
+      "Train/pigmented benign keratosis": 462,
+      "Train/seborrheic keratosis": 77,
+      "Train/squamous cell carcinoma": 181,
+      "Train/vascular lesion": 139
+    },
+    "image_modes": {
+      "RGB": 2357
+    },
+    "minimum_width": 576,
+    "maximum_width": 6688,
+    "minimum_height": 450,
+    "maximum_height": 4479,
+    "extensions": {
+      ".jpg": 2357
+    }
+  },
+  "structure_validation": {
+    "discovered_splits": [
+      "Test",
+      "Train"
+    ],
+    "missing_splits": [],
+    "unexpected_splits": [],
+    "discovered_classes": [
+      "actinic keratosis",
+      "basal cell carcinoma",
+      "dermatofibroma",
+      "melanoma",
+      "nevus",
+      "pigmented benign keratosis",
+      "seborrheic keratosis",
+      "squamous cell carcinoma",
+      "vascular lesion"
+    ],
+    "missing_classes": [],
+    "unexpected_classes": []
+  },
+  "training_class_imbalance": {
+    "minimum_class": "seborrheic keratosis",
+    "minimum_count": 77,
+    "maximum_class": "pigmented benign keratosis",
+    "maximum_count": 462,
+    "imbalance_ratio": 6.0,
+    "counts": {
+      "seborrheic keratosis": 77,
+      "dermatofibroma": 95,
+      "actinic keratosis": 114,
+      "vascular lesion": 139,
+      "squamous cell carcinoma": 181,
+      "nevus": 357,
+      "basal cell carcinoma": 376,
+      "melanoma": 438,
+      "pigmented benign keratosis": 462
+    }
+  }
+}

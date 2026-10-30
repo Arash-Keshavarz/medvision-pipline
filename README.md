@@ -9,14 +9,16 @@ inference serving, prediction logging, containerization, testing, and
 deployment.
 
 > This project is intended for research and educational purposes only.
-> It is not a medical device and must not be used for clinical diagnosis.
+> Its models are research and portfolio baselines, not clinical
+> diagnostic systems. It is not a medical device and must not be used
+> for clinical diagnosis.
 
 ## Project goals
 
 The first release will:
 
-- Train a PyTorch baseline for nine-class skin lesion classification.
-- Build reproducible train, validation, and test splits.
+- Train a PyTorch baseline for seven-class skin lesion classification.
+- Build reproducible, lesion-aware train, validation, and test splits.
 - Detect duplicate images before splitting the dataset.
 - Evaluate performance using balanced accuracy, macro F1, per-class
   recall, ROC-AUC, and a confusion matrix.
@@ -31,28 +33,34 @@ deployment.
 
 ## Dataset
 
-The initial MVP uses the
-[Skin Cancer ISIC dataset](https://www.kaggle.com/datasets/nodoubttome/skin-cancer9-classesisic).
+The project uses the official
+[HAM10000 dataset](https://doi.org/10.7910/DVN/DBW86T)
+(Tschandl et al., Harvard Dataverse): 10,015 dermoscopic images of
+7,470 unique lesions across seven diagnosis classes (`akiec`, `bcc`,
+`bkl`, `df`, `mel`, `nv`, `vasc`).
 
-It contains 2,357 dermoscopic images organized into nine skin-lesion
-classes:
+The images are not stored in this repository. They are expected locally
+under `data/raw/ham10000/` (`HAM10000_metadata.csv` and `images/`).
 
-1. Actinic keratosis
-2. Basal cell carcinoma
-3. Dermatofibroma
-4. Melanoma
-5. Nevus
-6. Pigmented benign keratosis
-7. Seborrheic keratosis
-8. Squamous cell carcinoma
-9. Vascular lesion
+### Dataset history
 
-The images are not stored in this repository. See `data/README.md` for
-download and preparation instructions.
+The first prototype used a third-party Kaggle ISIC dataset. It was
+rejected after the duplicate audit found byte-identical images with
+conflicting class labels and images shared between its train and test
+folders.
 
-Because this curated dataset does not provide reliable patient
-identifiers, the MVP uses duplicate-aware stratified splitting and does
-not claim patient-independent evaluation.
+HAM10000 passed file and metadata validation: every image is readable,
+every image has exactly one metadata record, and every metadata record
+has an image. See `reports/ham10000_audit/`,
+`reports/ham10000_duplicates/`, and `notebooks/01_EDA_HAM.ipynb` for
+the audit, duplicate check, and exploratory analysis.
+
+### Splitting
+
+Many lesions have several images, so splits are created by `lesion_id`
+rather than by image: no lesion appears in more than one split. HAM10000
+does not provide patient identifiers, so the evaluation is
+lesion-independent but not guaranteed to be patient-independent.
 
 ## Planned releases
 
@@ -89,4 +97,11 @@ medvision-pipeline/
 └── README.md
 ```
 
+### Evaluation approach
 
+HAM10000 is strongly imbalanced (`nv` is about two thirds of all
+images). The project therefore:
+
+- uses balanced accuracy and macro F1 as primary metrics;
+- reports per-class precision, recall, F1, and support;
+- reports class and source distributions for every split.

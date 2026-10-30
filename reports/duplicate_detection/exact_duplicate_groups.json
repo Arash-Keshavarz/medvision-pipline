@@ -1,0 +1,3943 @@
+[
+  {
+    "sha256": "001ac3e3a6eac9e2cf237e31c65c33d321feb82163c5969fa258e76a5d181dac",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010876.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010876.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "0300d2f3cd167220754d2e51101016148fd6feea30a382d01972d28cc61d5f38",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0029025.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0029025.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "03f36a7ed9fc5a1680f365f48bbfdb1b37976bfba6a1ddd678ed5a5622e88104",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028370.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028370.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "04e99211a3f0e803a28af71a08e35f127fc59c7f51dbff8d433cb7a1084d655e",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0029141.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0029141.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "06d05365aa5cdb764124ce80395c5202437e66ef0a7d601c242e5f487dc01108",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028314.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028314.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "077da172704b5da49a84e156397ccfb797a910f9bedf39d15fd446ead79d1728",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011139.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011139.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "08100d8f17567dde1166627e61895dd170d59fadbd1ecb3a9e17e7cbedae4d6c",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027802.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027802.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "089dd6af179229fc59e8096848102aef7f9064fb3e939da6d3337ff95449dcc7",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026857.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026857.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "08bdbc7beaea013e0b6956e9c0d69d852b073100be7d7cfe9053c03299fd37d5",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010923.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010923.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "0b01030f0b8310773c0b22384fc3c107f732216c64af5fb1ec4757e21c21f5f1",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011181.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011181.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "0b1d88a0dd7b62d79d9fd6dbb734b6541fb2d96b85d1e4ef9112243116f20b0b",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/seborrheic keratosis/ISIC_0010809.jpg",
+        "split": "Test",
+        "class_name": "seborrheic keratosis"
+      },
+      {
+        "relative_path": "Train/melanoma/ISIC_0010809.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      }
+    ]
+  },
+  {
+    "sha256": "0b513c4fc0a03eeb323ce4733ac96710b7b4aa5355bd16fabed40cda846002e4",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011032.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011032.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "0b7b763cad215a121a1bf89a20f8dea0c892c45350848a0d12455434a6937af7",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010860.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010860.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "0b8f0d5c481fccfb499d7e3a75bec7ec0218181f7e485050bde74770babc7203",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026848.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026848.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "0df67be95c7b478cd2acd258f676064886580c3675d53454bd493cb5b398c697",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027254.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027254.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "129cea159f624a19e78caf86ce62a3132937292bd7f31620423afa53781ddd6d",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010965.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010965.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "1833b88c68c33985bb960be3d6546b23f3dd264a6a09545f87686064aec9e8a3",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024470.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024470.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "18b00243093b4b9ab2119a5456dd9b870dfc5af55b304a3088f14e7295ef47ea",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026625.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026625.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "19320a773b21476f9787fc13583603e0a26a8fc777a21bfa98efd96ed2f3554b",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027884.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027884.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "1ac62d7251a99de34c4e69294be398ca0431882c1699d86cef54c74ad6c8f49e",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010982.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010982.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "1c4e873a81d76be4bece4470968d0867882ebe9720eaae0862c7949535654015",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024646.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024646.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "223244b973838bf8bbc5b4354b111ef9c94348d01e8db22bf706cedda14ccd78",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027447.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027447.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "2398e22dc52ea0fe2ba3ea37062275fefccee9a98190d90df7a116706779b345",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0010889.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0010889.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "256966a58ffa3a0d5626d9e3132883f7b8260549f8f263c03a92cd0967fd3cff",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010971.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010971.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "287df416ca1d0b7ff2dca388c4a8b27e6f84094e71cb94a259ee4ba1e6e8225b",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0029309.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0029309.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "28d08ac76b180cc10eafdbda1a209e090cfbc3aab08e0ba7a13ab767801a733f",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0029210.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0029210.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "2b7a27cda45c698dce1676f322ba37ed7ef6b8d0d1ef39d8e0cfba06e70edcf7",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027615.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027615.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "2ddf26f8248392cd689389807cb60a92c5118b161b0615590a02fdc42f009e61",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026984.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026984.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "349bd546ca1b37abb701d64f117687b3076da7593974c79644968a96e0a9a5d1",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026194.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026194.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "364bcaf7d3ecc54884d85b31cca295e2e0bd3175294e285798ffd685852be326",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011057.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011057.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "36b718e909bc661b838331a39623e8d38c541f180eac428ce93295d1bd5e2188",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026171.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026171.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "36bb9303fbd9cacc703032bbace63c3f90ad5dd8a4becc21c78acb29eef9ffbb",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010898.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010898.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "378ffd030eb868f8117979af0224ed352f7e505bd79004e9dd9387d83a1a099c",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0025780.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025780.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "38489665a7ceb5475f58d41f8dd51c4cd832f025e3b232d0eb30cb7acc463ec3",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0025957.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025957.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3965ce4269a719e4330302ebddc33da39ed6f516636ce055314ff0c6daa947e4",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027950.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027950.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3983e4ac8288ea5ca6775f498d19fd6c58e07fe30b64abbe3d220bd812ef2389",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011013.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011013.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "39d708f842d51a6c3ac61a0360a8f8c2848389500bc37c5ed221db24225935ed",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010942.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010942.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "3a48c0aa9d5aea4b9f8a9da8a03e3f71cc3cf7373ad40188f052c9cc33967c48",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026149.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026149.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3a6bfdd593c2c3d93f750f628605bbf2fbc825113b7228c757f7e62ebd2948d3",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024948.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024948.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3bada56aa263fdcfd012c2cf8c312b332a0c16c82efd1ee8076bdd0a4bbc85fd",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026650.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026650.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3cb2b5c76dcb6698c46f522f2ff2f259c8b1f1b194e523b9158ea05a7c1660a8",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0025427.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025427.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3d0185a06c4f9b3ebaedcb222cb258d5fda18641c54b8979e71fd4934190d2d3",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028820.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028820.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3daf81231a01f81f3c8b519cee02eb6624ca707ad6e427f58502feba22fa2a41",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027536.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027536.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "3eafc13382024dfa9d0611595c94e2316f67f28282e486f7d237fec3738605dd",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011161.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011161.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "417fcef98242e37489516117b68bcbb8fa89338c556f822318c42fff68ae32ee",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027580.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027580.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "43a0b43f92405216ec9cceb2e51a331d672a95acd6dbf865f6d3111d6a18f2e2",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010878.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010878.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "45cf30d18f96c915b6d0e12802320d8760fe09f230d147ba536682b705acfcb5",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011137.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011137.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "47c42f7f0cdc72ab02d85d89f7105daa8fb80a34ff4866765ecde2a96d9b44de",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024763.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024763.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "47d214f8089cfeaede281061d32d7b952910e2c5bf774f87817c24147e423cc4",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024468.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024468.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "47d47c7fc9af8e53d91447b416c70aa3fc7064ca25dc834101b77f6a23894c0b",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011125.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011125.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "488385ecc1a35cdf82864b271871b80c340d1e1422610d391eaadccf315fef31",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010990.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010990.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "48fea43ac6abdb5342f34e5410bf77ed5cbe916f47160de4ee32c34d14d74cd5",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011031.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011031.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "49f5511c06650b6990d4f1e20358bf484ae35b7eea8826b4a6a9b549379634e0",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0025368.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025368.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "4b59fcaef6f41f9c20b49a2bff5dfb39cad0eb4ed64f62093f650abf7a94f680",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0025605.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025605.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "4c36ce0f2ab953a4773fd6e10ce5d8126314bdf0bd192a2ab18f4c4f408fddd9",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010938.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010938.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "4e511078bec8fd055445cdd21f6947b2b9c3bc05aa5476e8752608eccab53967",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010812.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010812.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "4f97341553728ad0b529f1bfc2c5886911bce3de615617876d80639bccc6a012",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010925.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010925.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "51893e09f1c17f2fc7859d36b118ae245225160eb68b4aa7e6f5150e53821ce9",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024913.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024913.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "55e2915d07a642bf4a33a14fd85a95d569d1f8ee5f06f313b146f89eeaef3661",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0025953.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025953.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "58ca81bb02bf34d7fef7980edcf975ea269cb5ef7d7d88292ec982215df3154a",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011012.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011012.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "5942de7f7c100179e6b2582676f6b4d88767d5cd542106bcdf5143773cbf9a66",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011043.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011043.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "624c387b8253211d146ac473b3600fa3b544360d9df5e347f07b18388b5be1ec",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010917.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010917.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "628c2e851e2901b0cf3936dc70c23e8c246b1d2e27524841720198213fb2e55a",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026702.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026702.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "63ab3f304e2b1eecb2a8de991332cd69b6a9f00bee6129f386515d302bdf35a7",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0029133.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0029133.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "644e030511aa08148441191809ceb85accdfb5c40d6c224be12e7c2106abe489",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011187.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011187.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "654134841fda4d7e833ff46907bbe69ca1323e4f23ee083f50fbe75ba7a8edab",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028854.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028854.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "69722b5451b889cf7c28213dd9ef62cbe28139fb5a3cf0f41d43830fe23cb2dc",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024511.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024511.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "6b8075041113eca0cc00eb8fa8b2579f089aa8bd30380a39e482ba3ce3030e2f",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011174.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011174.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "6c3df4a31115804ff79a5d6ce43f18084cf77f3954f19d4acf9ad445bb242725",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026457.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026457.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "6da0eedb5dc33946f183248e77e5d25ec7242a4c2d229f4baa8c3583f9440b54",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011136.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011136.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "6f0f06227807f5b15ee94a98026bb860da476d33ce3999054df05a0bf711b589",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011056.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011056.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "6ff620b67ad237a76cd38abb40529e08f556bc2cae4d85fe0ba715f23bd1b383",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011163.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011163.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "7059f6d72f7e83091cef981c06ecbbdf8a5e5530856360483c6ccb1d9f4afdd1",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011052.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011052.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "70f4abc31ad0b059986e452de6e581f32027db8886809104677b02650b0925ed",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010834.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010834.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "7425187e5bb913d7449aac5276f4314bfefd0b856d1d6a104e87fc3c1383671e",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011007.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011007.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "748adee178e6ce2087e3cfe61b41c7c8359cbef17c4d07d4267e0f8f0bb1255c",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024771.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024771.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "759ad5143a8b2415ed655bd38731d9462fd2be321596e326c48f19fd928a7750",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010862.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010862.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "75d56c994e6b986444971cf114da19849ee03893a9db285c2b979391db2c2ecd",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027172.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027172.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "7902c4e0c6edaa3bc2ea6ad21a431c4535ee718ef495c7572b47d216d0306d01",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011166.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011166.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "799c6fda24447e0558ec7a6e628f395053541343053b7cc9e0f5857b7e255386",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024707.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024707.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "7a3abe00ac2f3c2d0fe9fc4ad634909852b0a4002d921bcc0f1be47e6d1bbcc3",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011030.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011030.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "7a5a9a0a7faad09ba60513ec8c0f0046cdea520899aea4bf6c9e9614e30a2879",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0010512.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0010512.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "7b8a26f90b3b33758c1dff8b474f037d5f1ec28d24ed36ea16d97183eaa56e5d",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028990.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028990.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "7e7250cbc273a806c40c8cf3dc5061a8e05b3a6058d4625ee338a57112100664",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026626.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026626.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "833e534cb15b882999a13d651f5d33e30adaa0336da1869e9fa31dfdb008e5c9",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010866.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010866.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "837c92622d846714ef5df53c2f3f3672d1561658f0e81ede3549f7b056895ff8",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028076.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028076.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "8403cbd0c5ede08db514f197ee6dec28b3435f14bf2ad56818d9c1db1fc63c95",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011040.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011040.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "8446af5c84d73443d3c0029ba3443d435c63d01900b6563e69a0c7cca3b79dba",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010934.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010934.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "87ef83468e009f4c88703bfedd90c456af16ec0ca624f95925a65cc90906cb7c",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027958.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027958.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "8a42f6184e7ecfe08a423e6727a65054b80d91267ef8a8932246adb57a1cf463",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011094.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011094.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "8cf43fa99497c866996c15b6b221232b5e1cd05b289d96e476f318cb2ad9ae72",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011112.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011112.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "8d725c6bda44cf0e5d0a6a3852d88eb9b1ea079d303b11cd60efba4812816b8f",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028063.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028063.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "8ea2a14b017bc2ec3f0c92998d51e9ab02086f7fef121c7bdc8a9045080476dd",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028393.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028393.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "8f41b1f976254dc4195a945052aed829c53d7d876c69850010a00f6227d14fd9",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011169.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011169.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "948a3d794958f6f1b7a03ced3b5997b04ee1f0aebfd79384f91a6f676673340b",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011138.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011138.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "97271f8b74cf081be1c021f80909b9e6fc2c38466e358bcaf89c3de2658fd7c6",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010810.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010810.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "9926b355b46d6f1db4941b8b7223e0c7e22517f7589eea803dea7c3cbab59c7a",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010852.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010852.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "9a39654687e6693f342d42b4b7b910d093ea49bf9b971b593c873058a1ec05a6",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026468.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026468.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "9b2552b8b3c6844febb2c354cc9b04f1416d08713c55a30a72f5ded40fffb080",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011135.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011135.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "a30bbe65807b37c9e9ebfe8819e210afcf13773663161848127bcb639eb3b5e5",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": false,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/nevus/ISIC_0000477.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0000512.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "a33fb5863bf30fb8d26379e9c7bf12336dc3039ea4d704be46b2ded5d137bb3f",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027650.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027650.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "a4871c4940c227940d06637554ebb84781e381d130a6dbcf3c18b0d567796bb0",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026709.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026709.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "a760dbf054c0626c5e285f982407d670c826ab6fb6c3197acb5dc5fc1cc6d6d7",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026040.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026040.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "a9498fe8ce83c468d83d0bc5ff1d0dd09c9a097eda47ae26d8c72966488c8451",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026905.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026905.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "a9704842a1b371ffe65cb9e6c84594de425ff42d4e9396101c28219e4e728881",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/seborrheic keratosis/ISIC_0010803.jpg",
+        "split": "Test",
+        "class_name": "seborrheic keratosis"
+      },
+      {
+        "relative_path": "Train/melanoma/ISIC_0010803.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      }
+    ]
+  },
+  {
+    "sha256": "acda53061acc06a7e502398f6f19ae2b4d20b5623d03cb8d5c601affe368d04e",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011185.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011185.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "ad2184fcf519301523c00fd0a06de580624caade144b9af32e2dd2d578163da1",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010977.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010977.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "ae06d8bad87a90a4ec91944b940d6ba1cc15a5ffd06af495f1f3e71e0c6089d9",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": false,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0000279.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/melanoma/ISIC_0000280.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      }
+    ]
+  },
+  {
+    "sha256": "af2c63da8ae0f99747cc191b26b3bb8e8bfc13bd6c1b6e53fd557acecf5f95f2",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0025992.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025992.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "af9fb207ea6f7ff6a7aea6afce351945e9c7461c3f860ccc20b2f33281dc1813",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011099.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011099.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "b818ec511c55d5a2760e19e9f39a97019d1616001b4165bf7c3b9d2fbdb15792",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011178.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011178.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "b97c16fa65e9c9e3012001902b81b39ce65fee4836280f9d85b7400abbc7a58a",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028558.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028558.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "bb3ee522a40a1e422b82ec318f9e481e201cffcb9b6d73142d23f03e6d96b811",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010979.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010979.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "bc7270a7725a69b3b2bcf96bdabffd538a0139f2a0b801584f7db9b408112e65",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028941.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028941.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "bd6ca8e738f8371b7eb00bd47f11be77a75fbad95ca8ac806a461cdaf4f6b86b",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027829.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027829.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "bec2674124b620a42a5eb38fc9ee307b87d931fbafe75e6a3819123f3d8a73c4",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0029460.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0029460.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "bf15ba021decb98073feacecf23da4554186bf55e28a38d2f474162d96973fa1",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010890.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010890.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "bfbcf95ec8b92383fe14bf3e95e6b5c9a33c71803ff63a87dcefdf54795591d0",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010872.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010872.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "c30c2f97a029fa7925d38df5bda21139a682d7f2c7cd92039fb57b3f37fae0b7",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011039.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011039.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "c440598a61a6d75c59f7b0b90b7620617ee4a63cd8783fecfc169487216a4023",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011077.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011077.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "c4d366de8e23b45a21a996a114729f7e5bcdb733de48f799b67a96df7327d000",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026575.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026575.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "c59ae4c42b5169cdec5d331c0922462eb0249b1b13e2a384d73181b6b8aea7e9",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010993.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010993.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "c82f004494d93248d328f199d58e4a8f8dc9f17eb8e10c0f6f53f2f6edc47aab",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011128.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011128.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "ccdd2e206de4710a1e6498ac37e67b4ede44dbd5919ed912ac24c815cf4c0795",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026212.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026212.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "cdb1efc782588d5e8b0cbaba381f0d1590022128a324c4a723b945a3027297ed",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0029041.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0029041.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "cf85c9afdbfc5d3549bda69059961183d8f52df3eedbf5fb006285a50b87f46c",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026525.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026525.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "d00c1f2d9b968c4b98bab0e8453d33e055c4fbbe8a1c7db949cecebc22c70787",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011045.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011045.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "d0bdebea0437842b09cce45fe459605bca500d502671ec8baafe79d4c848cbba",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0025803.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025803.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "d1b8e1716357169c93ce53f4e52a4bdd129a0f18b1561a79d5ab9f8689002d87",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027896.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027896.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "d2f24fac068872bacbeae59d462bcd746f16bc983069254cfdef014e39f59f93",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011121.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011121.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "d3e3a2eaea8c2fa19661cc1f73bcbc8aacbc129b8f1e1a5ed11a07e1933315f6",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011151.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011151.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "d5a12c93c31ea940d74925947e685be0e8e5aa88044fe54ef056f309d2f78547",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027452.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027452.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "d5a8af5a7f4b1315865c52e4f3b7d86ee09360bf863fd6d1817a8c5246dca63e",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010900.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010900.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "d6118134666c1d9addfd519c832057e48dd823d186095e07edf60a4d98570656",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010978.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010978.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "d619ca6701703e26a17c6efe482947bed935e9f9a52e0d34b7c88ed6be7d5b23",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010909.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010909.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "d88c3d05bf5c631af156d617774091dbcd23e4dee1ae5a5aee96390baed8ff4e",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011140.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011140.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "da0f7c0eed2cb664f19623fdd2af98ce3494d63e817ecd616a1d5c36a228d872",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028190.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028190.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "daa8db694e35febea6a7c81914c64c77db544e2b9b1348c81319eb52084d0e8c",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026729.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026729.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "dd333ba477fd26262c5450e9b52c5fc6ca36fbc75f5e2a424d8dc61ca498edea",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027334.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027334.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "dde774e15ba212047db38e74d52771715624e16e9e799e9954822c524b068949",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0028517.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0028517.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "dfa7f68d28d7146fafac58e8567ececf0f03efa01c0e21ea77aeaa47d0aa0e4e",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011130.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011130.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "e0f4d06a0ecb9e2e9af7a0446d12b53764abe075970c09f84f6b732f78503eed",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011158.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011158.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "e3d397c2e04db7572fcacbe61ea31d68a16b83fe588e2e687d9a013e89092ffc",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010995.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010995.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "e4aed32cc0e52fe4fe455f91da7baaadef9dc336cff76944db42733fbe601d7d",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011042.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011042.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "e5bb9fedfe43e17d1e71935f443a03efe311e1802b50e74b9a5fe24d7020c305",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011095.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011095.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "e7a5474b8b9015c7ac79f82e855fda08433edd4ddeab85ffb3528921cdf7ee6d",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010883.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010883.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "ecab23cf000a4c7e714900c2d7e3f4c8c1b696968f7cd233e4e3b2801e5667f2",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027562.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027562.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "ecb5a097694dc95f11a51f9b99fa14127bb673bdac3e98490cdf389ae8c2e848",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011132.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011132.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "edb678b2139220de5a832746d03118899d2c237e272c6df076a4327ce1b26b56",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0027668.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0027668.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "ef0360277f52c980eab9b4d0afbddfdae44080d19603ff985730cf1d45945823",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010863.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010863.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "f10641e0a858fdd4e9514633fe31b76aa56eb5233d5d9a07f4111bddafbc8968",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/actinic keratosis/ISIC_0024800.jpg",
+        "split": "Test",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0024800.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "f3620e1230aff532bd70ed2c3733bf926aa1e5196f65f9a85823aa6974e7c197",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0025825.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0025825.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "f96b462764627df128fea76b09bca9e8f9e67b9d5191ae4854c9353b64b11a9c",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0010912.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0010912.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "fd5d3fc5c65d33bb933d154e0014aa02880ecfe663c40d3d3f40c25eaaf4cd6d",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011176.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011176.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "fdd317b715c942a64de0cbd1187cc0ede34fb05a59d6cbc89da0a76471932cf4",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/melanoma/ISIC_0011193.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      },
+      {
+        "relative_path": "Train/seborrheic keratosis/ISIC_0011193.jpg",
+        "split": "Train",
+        "class_name": "seborrheic keratosis"
+      }
+    ]
+  },
+  {
+    "sha256": "ff5381e3f1c7da0612937c8b8ae70391bdcfcfb127a895395497213d694bd50c",
+    "image_count": 2,
+    "cross_split": false,
+    "cross_class": true,
+    "splits": [
+      "Train"
+    ],
+    "classes": [
+      "actinic keratosis",
+      "nevus"
+    ],
+    "images": [
+      {
+        "relative_path": "Train/actinic keratosis/ISIC_0026765.jpg",
+        "split": "Train",
+        "class_name": "actinic keratosis"
+      },
+      {
+        "relative_path": "Train/nevus/ISIC_0026765.jpg",
+        "split": "Train",
+        "class_name": "nevus"
+      }
+    ]
+  },
+  {
+    "sha256": "ffd7483a2193f089b2ecdbc3cd96ea243783ed1bb250ff6b22333707e685f84c",
+    "image_count": 2,
+    "cross_split": true,
+    "cross_class": true,
+    "splits": [
+      "Test",
+      "Train"
+    ],
+    "classes": [
+      "melanoma",
+      "seborrheic keratosis"
+    ],
+    "images": [
+      {
+        "relative_path": "Test/seborrheic keratosis/ISIC_0010808.jpg",
+        "split": "Test",
+        "class_name": "seborrheic keratosis"
+      },
+      {
+        "relative_path": "Train/melanoma/ISIC_0010808.jpg",
+        "split": "Train",
+        "class_name": "melanoma"
+      }
+    ]
+  }
+]

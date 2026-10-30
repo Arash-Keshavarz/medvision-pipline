@@ -1,0 +1,9 @@
+{
+  "exact_duplicate_groups": 157,
+  "images_in_exact_duplicate_groups": 314,
+  "exact_cross_split_groups": 18,
+  "exact_cross_class_groups": 155,
+  "near_duplicate_pairs": 34,
+  "near_cross_split_pairs": 1,
+  "near_cross_class_pairs": 12
+}
